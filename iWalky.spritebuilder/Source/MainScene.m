@@ -23,7 +23,7 @@
 
 
 static int MAPS_PER_LEVEL = 2;
-static int MAX_NUMBER_OF_MAPS = 10;
+static int MAX_NUMBER_OF_MAPS = 11;
 static int SECOND_PER_LEVEL = 5;
 
 @implementation MainScene
@@ -65,6 +65,8 @@ static int SECOND_PER_LEVEL = 5;
     
     BOOL clearPressed;
     
+    CCButton* _acceleration;
+    
     
 
     
@@ -102,7 +104,7 @@ static int SECOND_PER_LEVEL = 5;
 - (void)didLoadFromCCB
 {
     
-    
+    _acceleration.visible = false;
     won = false;
     goPressed = false;
     clearPressed = false;
@@ -149,6 +151,13 @@ static int SECOND_PER_LEVEL = 5;
     
     isAboutToDemote = false;
     
+    _star = (Star*)[CCBReader load:@"star"];
+    
+    _star.position = ccp(_endTile.position.x+16, _endTile.position.y+16);
+    
+    character.zOrder = _star.zOrder + 1;
+    
+    [_levelMapFrame addChild:_star];
     
     
 
@@ -179,6 +188,8 @@ static int SECOND_PER_LEVEL = 5;
 
 -(void)go
 {
+    _acceleration.visible = true;
+
     if (!goPressed && [instructionSet count] != 0) {
         [self executeInstruction];
         goPressed = true;
@@ -415,6 +426,9 @@ static int SECOND_PER_LEVEL = 5;
     CCNode* mapNode = ((CCNode*)[_levelMap.children objectAtIndex:0 ]);
     tileNode = ((CCNode*) [mapNode.children objectAtIndex:0]);
     
+    [self sortTileX];
+    [self sortTileY];
+    
 }
 
 -(void)settingUpInstructionSet_And_InstructionCounter
@@ -439,8 +453,10 @@ static int SECOND_PER_LEVEL = 5;
 -(void)loadTimerNode
 {
     timerNode = (Timer*) [CCBReader load:@"Timer" owner:self];
-    timerNode.positionType = CCPositionTypeNormalized;
-    timerNode.position = ccp(0, 0);
+
+    
+    timerNode.position = ccp(0.5 * [[CCDirector sharedDirector] viewSize].width, 0.27 * [[CCDirector sharedDirector] viewSize].height);
+
     
     [self addChild:timerNode];
 }
@@ -458,7 +474,7 @@ static int SECOND_PER_LEVEL = 5;
 
 -(void)updateTimer
 {
-    if (!(won)) {
+    if (!(won) && !isAboutToDemote) {
         countDownTimerCheck--;
         _timerLabel.string = [NSString stringWithFormat:@"%d", countDownTimerCheck] ;
         
@@ -573,6 +589,46 @@ static int SECOND_PER_LEVEL = 5;
         character.accelerationModeEnabled = true;
         character.animationDuration = 0.5;
     }
+}
+
+-(void)sortTileX
+{
+    
+    for (CCNode* node in tileNode.children )
+    {
+        BOOL rePlacedTile = false;
+
+        for (int i = 32; i <= 320 && !rePlacedTile; i=i+32)
+        {
+            if (abs((int)node.position.x - i) <= 10)
+            {
+                node.position = ccp((float)i, node.position.y);
+                rePlacedTile = true;
+            }
+        }
+        
+    }
+    
+}
+
+-(void)sortTileY
+{
+    
+    for (CCNode* node in tileNode.children )
+    {
+        BOOL rePlacedTile = false;
+        
+        for (int i = 32; i <= 384 && !rePlacedTile; i=i+32)
+        {
+            if (abs((int)node.position.y - i) <= 10)
+            {
+                node.position = ccp(node.position.x, (float)i);
+                rePlacedTile = true;
+            }
+        }
+        
+    }
+    
 }
 
 @end

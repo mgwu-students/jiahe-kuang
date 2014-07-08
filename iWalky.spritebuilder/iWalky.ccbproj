@@ -65,7 +65,7 @@
 	<key>publishToZipFile</key>
 	<false/>
 	<key>resourceAutoScaleFactor</key>
-	<integer>2</integer>
+	<integer>4</integer>
 	<key>resourcePaths</key>
 	<array>
 		<dict>
@@ -80,17 +80,17 @@
 			<key>previewFolderHidden</key>
 			<true/>
 		</dict>
+		<key>ArtWorks/BackGround.png</key>
+		<dict>
+			<key>scaleFrom</key>
+			<integer>4</integer>
+		</dict>
 		<key>ArtWorks/Space.png</key>
 		<dict>
 			<key>scaleFrom</key>
 			<integer>1</integer>
 		</dict>
 		<key>ArtWorks/rsz_barrel.png</key>
-		<dict>
-			<key>scaleFrom</key>
-			<integer>2</integer>
-		</dict>
-		<key>ArtWorks/rsz_gundam_space_hd_wallpapers.png</key>
 		<dict>
 			<key>scaleFrom</key>
 			<integer>2</integer>
@@ -104,21 +104,6 @@
 		<dict>
 			<key>scaleFrom</key>
 			<integer>2</integer>
-		</dict>
-		<key>ArtWorks/rsz_star.png</key>
-		<dict>
-			<key>scaleFrom</key>
-			<integer>2</integer>
-		</dict>
-		<key>Buttons/GoStraight.png</key>
-		<dict>
-			<key>scaleFrom</key>
-			<integer>1</integer>
-		</dict>
-		<key>Buttons/Turn.png</key>
-		<dict>
-			<key>scaleFrom</key>
-			<integer>1</integer>
 		</dict>
 		<key>Buttons/arrow.png</key>
 		<dict>
