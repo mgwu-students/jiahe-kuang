@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>MapCollections</key>
+	<array>
+		<array>
+			<string>lvl1-demoMap</string>
+			<string>lvl1.1Map</string>
+		</array>
+		<array>
+			<string>lvl2-demoMap</string>
+			<string>lvl2.1Map</string>
+		</array>
+		<array>
+			<string>lvl3-demoMap</string>
+			<string>lvl3.1Map</string>
+		</array>
+	</array>
+</dict>
+</plist>
