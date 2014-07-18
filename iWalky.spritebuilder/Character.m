@@ -22,6 +22,8 @@ typedef enum{
 @implementation Character
 {
     TailParticle* _tailParticle;
+
+
     CCSprite* _characterSprite;
 
 }
@@ -32,13 +34,21 @@ typedef enum{
     
     _characterSprite.rotation = (arc4random() % 4) * 90;
     
+    if ([[SaveManager sharedManager]getPlayerNormalMapLevel] < 4) {
+        _characterSprite.rotation = 0.0;
+    }
+    
     _tailParticle.angle = _characterSprite.rotation - 180.f;
 
+
     _tailParticle.particlePositionType = CCParticleSystemPositionTypeFree;
+
+
     
     _tailParticle.paused = true;
+
     
-    _animationDuration = 1.0f;
+    _animationDuration = .7f;
     
     _accelerationModeEnabled = false;
     
@@ -51,12 +61,14 @@ typedef enum{
     CCActionRotateBy* rotateLeft = [CCActionRotateBy actionWithDuration:_animationDuration angle:-90];
     
     _tailParticle.paused = false;
+
     
     CCActionCallBlock* callBack = [CCActionCallBlock actionWithBlock:^{
         [self animationFinished];
     }];
     
     CCActionSequence* actionSequence = [CCActionSequence actionOne:(CCActionFiniteTime*)rotateLeft two:(callBack)];
+//    [self.animationManager runAnimationsForSequenceNamed:@"pressedAnimation"];
     [_characterSprite runAction:actionSequence];
 }
 
@@ -67,12 +79,15 @@ typedef enum{
     CCActionRotateBy* rotateRight = [CCActionRotateBy actionWithDuration:_animationDuration angle:90];
     
     _tailParticle.paused = false;
+
+    
     CCActionCallBlock* callBack = [CCActionCallBlock actionWithBlock:^{
         [self animationFinished];
     }];
     
     CCActionSequence* actionSequence = [CCActionSequence actionOne:(CCActionFiniteTime*)rotateRight two:(callBack)];
 
+//    [self.animationManager runAnimationsForSequenceNamed:@"pressedAnimation"];
     [_characterSprite runAction:actionSequence];
 }
 
@@ -108,9 +123,13 @@ typedef enum{
     
     if (_accelerationModeEnabled) {
         [_tailParticle removeFromParent];
-        _tailParticle.startSize = 13.0f;
-        _tailParticle.endSize  = 7.0f;
+
+
+
+        _tailParticle.startSize = 12.0f;
+        _tailParticle.endSize  = 8.0f;
         
+
         [self addChild:_tailParticle];
         _tailParticle.zOrder = _characterSprite.zOrder - 1;
     }
@@ -133,6 +152,9 @@ typedef enum{
 -(void)update:(CCTime)delta
 {
     _tailParticle.angle = _characterSprite.rotation - 180.f;
+
+
+
 }
 
 -(Direction)getOrientation

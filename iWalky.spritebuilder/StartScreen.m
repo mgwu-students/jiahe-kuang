@@ -13,10 +13,7 @@
 
 -(void)startNormalGame
 {
-    if ([[SaveManager sharedManager]getPlayerNormalMapLevel] == 0) {
-        [[SaveManager sharedManager]saveBarrelCount:10];
-        [[SaveManager sharedManager]saveStarCount:3];
-    }
+
     CCScene* sceneAboutToEnter = [CCBReader loadAsScene:@"MainScene"];
     CCTransition *transition = [CCTransition transitionFadeWithDuration:0.8f];
     [[CCDirector sharedDirector] presentScene:sceneAboutToEnter withTransition:transition];
@@ -39,6 +36,7 @@
     [[SaveManager sharedManager] resetCurrentPlayingMap];
     [[SaveManager sharedManager] resetStarCount];
     [[SaveManager sharedManager] resetBarrelCount];
+    [[SaveManager sharedManager] resetPlayerHighScoreRecord];
 }
 
 @end

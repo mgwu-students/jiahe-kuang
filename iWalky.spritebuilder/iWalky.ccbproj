@@ -88,7 +88,7 @@
 		<key>ArtWorks/Space.png</key>
 		<dict>
 			<key>scaleFrom</key>
-			<integer>1</integer>
+			<integer>4</integer>
 		</dict>
 		<key>ArtWorks/rsz_barrel.png</key>
 		<dict>

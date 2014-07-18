@@ -23,12 +23,49 @@
 
 
 static int MAPS_PER_LEVEL = 2;
-static int MAX_NUMBER_OF_MAPS = 11;
-static int SECOND_PER_LEVEL = 5;
+static int MAX_NUMBER_OF_MAPS = 12;
+
+static int BRONZE_TIER = 900;
+static int SILVER_TIER = 1000;
+static int GOLD_TIER = 1100;
+static int PLATINUM_TIER = 1120;
+static int DIAMOND_TIER = 1144;
+
+
+
+
+//static int SECOND_PER_LEVEL = 5;
 
 @implementation MainScene
 {
+    CCLabelTTF* _totalHighScoreLabel;
+    CCLabelTTF* _rankLabel;
+    CCButton* _retryButton;
+    CCButton* _nextButton;
+    CCButton* _finishButton;
+    
+    CCNode* _portal1Start;
+    CCNode* _portal1End;
+    
+    
+    CCNode* _portal2Start;
+    CCNode* _portal2End;
+    
+    
+    CCNode* _portal3Start;
+    CCNode* _portal3End;
+    
+    
+    CCNode* _portal4Start;
+    CCNode* _portal4End;
+
+    
+    CCLabelTTF* _LabelIndicator;
+    
     NSMutableArray* instructionSet;
+    
+    NSMutableArray* playerHighScoreRecord;
+    
     int currentLevel;
     CCNode* _levelMapFrame;
     Character*  character;
@@ -44,9 +81,16 @@ static int SECOND_PER_LEVEL = 5;
     NSString* currentPlayingMap;
     
     CCLabelTTF* _timerLabel;
-    CCTimer* countDownTimer;
-    Timer* timerNode;
-    int countDownTimerCheck;
+    float mTimeInSec;
+    
+    CCLabelTTF* _currentScoreLabel;
+    CCLabelTTF* _highScoreLabel;
+    
+//    CCLabelTTF* _newHighScoreLabel;
+    
+//    CCTimer* countDownTimer;
+//    Timer* timerNode;
+//    int countDownTimerCheck;
     
     CCLabelTTF* _starCountsLabel;
     CCLabelTTF* _barrelCountsLabel;
@@ -67,7 +111,42 @@ static int SECOND_PER_LEVEL = 5;
     
     CCButton* _acceleration;
     
+    CCParticleSystem* _rotateLeftParticle;
+    CCParticleSystem* _rotateRightParticle;
+    CCParticleSystem* _goUpParticle;
+    CCParticleSystem* _starParticle;
     
+    CCParticleSystem* _hightLightParticleForLeft;
+    CCParticleSystem* _hightLightParticleForMoveForward;
+    CCParticleSystem* _hightLightParticleForRight;
+    
+    CCButton* _turnLeftButton;
+    CCButton* _turnRightButton;
+    CCButton* _goUpButton;
+    CCButton* _startEngineButton;
+    
+
+    CCButton* _clearButton;
+    CCButton* _menuButton;
+    
+    CCSprite* _arrow1;
+    CCSprite* _arrow2;
+    CCSprite* _arrow3;
+    
+//    CCLabelTTF* _moveForwardLabel;
+    
+    CCNode* _tutorialLabel;
+    
+    CCSprite* _star_Icon;
+    CCSprite* _barrel_Icon;
+    
+    int level2TutorialMoveForwardCounter;
+    int level3TutorialMoveForwardCounter;
+    
+    BOOL level3isAboutDone;
+
+    
+    BOOL solarDisruption;
 
     
     
@@ -82,6 +161,7 @@ static int SECOND_PER_LEVEL = 5;
     
     if (characterIsAlive)
     {
+        [self checkForPortal];
         [self checkForBarrel];
         [self checkForStar];
         
@@ -103,6 +183,22 @@ static int SECOND_PER_LEVEL = 5;
 
 - (void)didLoadFromCCB
 {
+    
+    mTimeInSec = 0.0f;
+    
+    [self schedule:@selector(tick:) interval:(1.f)];
+    
+    if ([[SaveManager sharedManager]getPlayerNormalMapLevel] == 0)
+    {
+        [[SaveManager sharedManager]saveBarrelCount:100];
+        [[SaveManager sharedManager]saveStarCount:1];
+    }
+    
+    [_rotateLeftParticle stopSystem];
+    [_rotateRightParticle stopSystem];
+    [_goUpParticle stopSystem];
+    [_starParticle stopSystem];
+    
     
     _acceleration.visible = false;
     won = false;
@@ -134,13 +230,13 @@ static int SECOND_PER_LEVEL = 5;
     //it sets characterIsAlive state to be true
     [self setCharacterIsAliveToBeTrue];
     
-    if (playerMapLevel > 10) {
-        [self loadTimerNode];
-        
-        [self setTimerLabel];
-        
-        [self checkTimer];
-    }
+//    if (playerMapLevel > 10) {
+//        [self loadTimerNode];
+//        
+//        [self setTimerLabel];
+//        
+//        [self checkTimer];
+//    }
 
     
     starCounts = [[SaveManager sharedManager] getStarCount];
@@ -151,7 +247,7 @@ static int SECOND_PER_LEVEL = 5;
     
     isAboutToDemote = false;
     
-    _star = (Star*)[CCBReader load:@"star"];
+    _star = (Star*)[CCBReader load:@"Star"];
     
     _star.position = ccp(_endTile.position.x+16, _endTile.position.y+16);
     
@@ -159,40 +255,144 @@ static int SECOND_PER_LEVEL = 5;
     
     [_levelMapFrame addChild:_star];
     
+//    _barrelCountsLabel.visible= false;
     
+    level3isAboutDone = false;
 
     
 }
 
+
+
 -(void)goForward
 {
     if (!goPressed) {
+//        [character.animationManager runAnimationsForSequenceNamed:@"pressedAnimation"];
+        [_goUpParticle resetSystem];
         [instructionSet addObject:@"goForward"];
     }
+    
+    if (playerMapLevel == 1)
+    {
+        
+        [self level1TutorialStep3];
+    }
+    
+    if (playerMapLevel == 2) {
+        
+        if (level2TutorialMoveForwardCounter < 2) {
+            level2TutorialMoveForwardCounter++;
+            [self level2TutorialStep2];
+        }
+        else
+        {
+            [self level2TutorialStep3];
+        }
+        
+    }
+    
+    if (playerMapLevel == 3 && !level3isAboutDone) {
+        
+        if (level3TutorialMoveForwardCounter < 1)
+        {
+            level3TutorialMoveForwardCounter++;
+            [self level3TutorialStep2];
+        }
+        else
+        {
+            [self level3TutorialStep3];
+        }
+        
+    }
+    
+    if (playerMapLevel == 3 && level3isAboutDone) {
+        [self level3TutorialStep4];
+    }
+    
 }
 
 -(void)turnLeft
 {
     if (!goPressed) {
+//        [character.animationManager runAnimationsForSequenceNamed:@"pressedAnimation"];
+        [_rotateLeftParticle resetSystem];
+
         [instructionSet addObject:@"turnLeft"];
+        
+    }
+    
+    if (playerMapLevel == 1)
+    {
+
+        [self level1TutorialStep2];
+    }
+    
+    if (playerMapLevel == 2) {
+        [self level2TutorialStep2];
+    }
+    
+    if (playerMapLevel == 3) {
+        [self level3TutorialStep2];
 
     }
+    
+    
 }
 
 -(void)turnRight
 {
     if (!goPressed) {
+//        [character.animationManager runAnimationsForSequenceNamed:@"pressedAnimation"];
+        [_rotateRightParticle resetSystem];
         [instructionSet addObject:@"turnRight"];
+    }
+    
+    if (playerMapLevel == 3)
+    {
+        level3isAboutDone = true;
+   
+        [self level3TutorialStep2];
     }
 }
 
 -(void)go
 {
-    _acceleration.visible = true;
 
     if (!goPressed && [instructionSet count] != 0) {
+        [_starParticle resetSystem];
+
+        AudioServicesPlaySystemSound (kSystemSoundID_Vibrate);
+
+        if(playerMapLevel > 3)
+        {
+            _acceleration.visible = true;
+        }
+        
+        _startEngineButton.visible=false;
+        _turnLeftButton.visible = false;
+        _turnRightButton.visible = false;
+        _goUpButton.visible = false;
+        _clearButton.visible = false;
+        _menuButton.visible = false;
+        
+        _arrow1.visible = false;
+        _arrow2.visible = false;
+        _arrow3.visible = false;
+        
+        _hightLightParticleForLeft.visible = false;
+        _hightLightParticleForMoveForward.visible = false;
+        _hightLightParticleForRight.visible = false;
+
+//        _moveForwardLabel.visible = false;
+
+        
+//        _barrelCountsLabel.visible= true;
+
+        _tutorialLabel.visible = false;
+
         [self executeInstruction];
         goPressed = true;
+        
     }
 
 
@@ -265,6 +465,7 @@ static int SECOND_PER_LEVEL = 5;
 
 -(void)gameOver
 {
+    _acceleration.visible = false;
     OverPopup* popup = (OverPopup *)[CCBReader load:@"OverPopup"];
     popup.positionType = CCPositionTypeNormalized;
     popup.position = ccp(0.5, 0.5);
@@ -279,30 +480,118 @@ static int SECOND_PER_LEVEL = 5;
     
     if (CGRectIntersectsRect(character.boundingBox, _endTile.boundingBox) && (instructionCounts == [instructionSet count] - 1))
     {
-        if (playerMapLevel < MAX_NUMBER_OF_MAPS) {
+        CCLOG(@"Player At %f, %f", character.position.x, character.position.y);
+        CCLOG(@"Entiled at %f, %f", _endTile.position.x, character.position.y);
+        
             won = true;
-            playerMapLevel++;
+            _menuButton.visible = true;
+        _acceleration.visible = false;
+        
             
-            [[SaveManager sharedManager] savePlayerNormalMapLevel:playerMapLevel];
-            [[SaveManager sharedManager] resetCurrentPlayingMap];
-            [[SaveManager sharedManager] saveStarCount:starCounts];
-            [[SaveManager sharedManager] saveBarrelCount:barrelCounts];
             
-            WinPopup *popup = (WinPopup *)[CCBReader load:@"WinPopup"];
+            NSNumber* previousHighScoreForCurrentLevel = [playerHighScoreRecord objectAtIndex:playerMapLevel-1];
+
+            CCLOG(@"High Score for Level %d is %f", playerMapLevel, [previousHighScoreForCurrentLevel floatValue]);
+            
+            if ((100.f - mTimeInSec) > [previousHighScoreForCurrentLevel floatValue])
+            {
+                NSNumber* newHighScore = [NSNumber numberWithFloat:100.f - mTimeInSec];
+                
+                CCLOG(@"Adding score : %f to index %d", [newHighScore floatValue], playerMapLevel - 1);
+                
+                [playerHighScoreRecord removeObjectAtIndex:playerMapLevel-1];
+                [playerHighScoreRecord insertObject:newHighScore atIndex:playerMapLevel-1];
+                
+                CCLOG(@"%.2f", [(NSNumber*)[playerHighScoreRecord objectAtIndex:playerMapLevel-1] floatValue]);
+                
+
+                
+                [[SaveManager sharedManager] savePlayerHighScoreRecord: [NSArray arrayWithArray:playerHighScoreRecord]];
+                
+            }
+            
+            WinPopup *popup = (WinPopup *)[CCBReader load:@"WinPopup" owner:self];
             popup.positionType = CCPositionTypeNormalized;
             popup.position = ccp(0.5, 0.5);
             
             [self addChild:popup];
-        }
         
-        else
+            _finishButton.visible = false;
+        
+            [_LabelIndicator setString:@"Your Score:"];
+
+        
+            [_currentScoreLabel setString:[NSString stringWithFormat:@"%d", (int)(100.f - mTimeInSec)]];
+        
+            if ((100.f - mTimeInSec) > [previousHighScoreForCurrentLevel floatValue])
+            {
+//                [_newHighScoreLabel setString:[NSString stringWithFormat:@"Lvl%d High Score: %d", playerMapLevel, (int)(100.f - mTimeInSec)]];
+                [_highScoreLabel setString:[NSString stringWithFormat:@"Yay!!New Best Score: %d", (int)(100.f - mTimeInSec)]];
+
+            }
+            else{
+                [_highScoreLabel setString:[NSString stringWithFormat:@"Best Score: %d", (int)[previousHighScoreForCurrentLevel floatValue]]];
+
+            }
+            
+            [[SaveManager sharedManager] saveStarCount:starCounts];
+            [[SaveManager sharedManager] saveBarrelCount:barrelCounts];
+        
+        
+        if (playerMapLevel == MAX_NUMBER_OF_MAPS)
         {
-            won = true;
+            
+            [_LabelIndicator setString:@"Pilot Ranking:"];
+            NSInteger sum = 0;
+            
+            for (NSNumber *num in  playerHighScoreRecord)
+            {
+                sum += [num intValue];
+            }
+            [_totalHighScoreLabel setString:[NSString stringWithFormat:@"Best Scores Total: %d", sum]];
+            
+            if (sum <= BRONZE_TIER)
+            {
+                [_rankLabel setString:[NSString stringWithFormat:@"Bronze Pilot"]];
+            }
+            
+            if (sum > BRONZE_TIER && sum <= SILVER_TIER)
+            {
+                [_rankLabel setString:[NSString stringWithFormat:@"Silver Pilot"]];
+            }
+            
+            if (sum > SILVER_TIER && sum <= GOLD_TIER)
+            {
+                [_rankLabel setString:[NSString stringWithFormat:@"Gold Pilot"]];
+            }
+            
+            if (sum > GOLD_TIER && sum <= PLATINUM_TIER)
+            {
+                [_rankLabel setString:[NSString stringWithFormat:@"Platinum Pilot"]];
+            }
+            
+            if (sum > PLATINUM_TIER && sum <= DIAMOND_TIER)
+            {
+                [_rankLabel setString:[NSString stringWithFormat:@"Diamond Pilot"]];
+            }
+            
+            if(sum > DIAMOND_TIER)
+            {
+                [_rankLabel setString:[NSString stringWithFormat:@"Master Pilot"]];
+
+            }
+            
+            _retryButton.visible = false;
+            _nextButton.visible = false;
+            _highScoreLabel.visible = false;
+            _currentScoreLabel.visible = false;
+            _finishButton.visible = true;
+            
             CCLOG(@"You have passed the game");
-            [self Menu];
         }
-        
+    
     }
+
 
 }
 
@@ -367,7 +656,18 @@ static int SECOND_PER_LEVEL = 5;
 {
     if (won || (goPressed && isAboutToDemote) || (!goPressed))
     {
+        if([instructionSet count] > 0 && !won && starCounts > 0)
+        {
+            starCounts--;
+            [[SaveManager sharedManager] saveStarCount:starCounts];
+        }
         
+        else if([instructionSet count] > 0 && !won)
+        {
+            playerMapLevel--;
+            [[SaveManager sharedManager] savePlayerNormalMapLevel:playerMapLevel];
+            [[SaveManager sharedManager] resetCurrentPlayingMap];
+        }
         CCScene* sceneAboutToEnter = [CCBReader loadAsScene:@"StartScreen"];
         CCTransition *transition = [CCTransition transitionFadeWithDuration:0.8f];
         [[CCDirector sharedDirector] presentScene:sceneAboutToEnter withTransition:transition];
@@ -380,17 +680,39 @@ static int SECOND_PER_LEVEL = 5;
 -(void)loadPlayerMapLevel
 {
     playerMapLevel = [[SaveManager sharedManager] getPlayerNormalMapLevel];
+    playerHighScoreRecord = [[[SaveManager sharedManager]getPlayerHighScoreRecord] mutableCopy];
+
     
     if (playerMapLevel == 0)
     {
         playerMapLevel++;
+        [[SaveManager sharedManager] savePlayerNormalMapLevel:playerMapLevel];
+        
+        if (playerHighScoreRecord == nil) {
+            playerHighScoreRecord = [NSMutableArray array];
+            
+            for (int i = 0; i <  MAX_NUMBER_OF_MAPS; i++)
+            {
+                [playerHighScoreRecord insertObject:[NSNumber numberWithFloat:0.0f] atIndex:i];
+            }
+            
+            [[SaveManager sharedManager] savePlayerHighScoreRecord: [NSArray arrayWithArray:playerHighScoreRecord]];
+        }
+
+
     }
+    
     
 }
 
 -(void)loadCurrentPlayingMap
 {
     currentPlayingMap = [[SaveManager sharedManager] getCurrentPlayingMap];
+    
+    if ( playerMapLevel == 11) {
+        solarDisruption = true;
+        
+    }
     
     if (currentPlayingMap == nil)
     {
@@ -419,6 +741,7 @@ static int SECOND_PER_LEVEL = 5;
     character = (Character*)[CCBReader load:@"Character"];
     character.position = ccp((_startTile.position.x) + 16, _startTile.position.y + 16);
     
+    
     [_levelMapFrame addChild:character];
     
 
@@ -428,6 +751,32 @@ static int SECOND_PER_LEVEL = 5;
     
     [self sortTileX];
     [self sortTileY];
+    
+    
+    if (playerMapLevel <= 3)
+    {
+        CCNode* _plottingLabel = [CCBReader load:@"InstructionLabel/PlottingLabel"];
+        _plottingLabel.position = ccp([[CCDirector sharedDirector] viewSize].width * 0.5, [[CCDirector sharedDirector] viewSize].height * .8);
+        [self addChild:_plottingLabel];
+    }
+    
+    if (playerMapLevel == 1)
+    {
+        [self level1TutorialStep1];
+    }
+    
+    if (playerMapLevel == 2)
+    {
+        level2TutorialMoveForwardCounter = 0;
+        [self level2TutorialStep1];
+
+    }
+    
+    if (playerMapLevel == 3)
+    {
+        level3TutorialMoveForwardCounter = 0;
+        [self level3TutorialStep1];
+    }
     
 }
 
@@ -450,54 +799,54 @@ static int SECOND_PER_LEVEL = 5;
   characterIsAlive = TRUE;
 }
 
--(void)loadTimerNode
-{
-    timerNode = (Timer*) [CCBReader load:@"Timer" owner:self];
+//-(void)loadTimerNode
+//{
+//    timerNode = (Timer*) [CCBReader load:@"Timer" owner:self];
+//
+//    
+//    timerNode.position = ccp(0.5 * [[CCDirector sharedDirector] viewSize].width, 1 * [[CCDirector sharedDirector] viewSize].height);
+//
+//    
+//    [self addChild:timerNode];
+//}
+//
+//-(void)setTimerLabel
+//{
+//    countDownTimerCheck = playerMapLevel * SECOND_PER_LEVEL +(int) [tileNode.children count] * 5;
+//    
+//    
+//    _timerLabel.string = [NSString stringWithFormat:@"%d",countDownTimerCheck] ;
+//    
+//
+//
+//}
 
-    
-    timerNode.position = ccp(0.5 * [[CCDirector sharedDirector] viewSize].width, 0.27 * [[CCDirector sharedDirector] viewSize].height);
+//-(void)updateTimer
+//{
+//    if (!(won) && !isAboutToDemote) {
+//        countDownTimerCheck--;
+//        _timerLabel.string = [NSString stringWithFormat:@"%d", countDownTimerCheck] ;
+//        
+//        if (countDownTimerCheck == 0)
+//        {
+//            [self unschedule:@selector(updateTimer)];
+//            [self iLost];
+//        }
+//    }
+//    
+//    else
+//    {
+//        [self unschedule:@selector(updateTimer)];
+//    }
+//
+//    
+//}
 
-    
-    [self addChild:timerNode];
-}
-
--(void)setTimerLabel
-{
-    countDownTimerCheck = playerMapLevel * SECOND_PER_LEVEL + [tileNode.children count] * 5;
-    
-    
-    _timerLabel.string = [NSString stringWithFormat:@"%d",countDownTimerCheck] ;
-    
-
-
-}
-
--(void)updateTimer
-{
-    if (!(won) && !isAboutToDemote) {
-        countDownTimerCheck--;
-        _timerLabel.string = [NSString stringWithFormat:@"%d", countDownTimerCheck] ;
-        
-        if (countDownTimerCheck == 0)
-        {
-            [self unschedule:@selector(updateTimer)];
-            [self iLost];
-        }
-    }
-    
-    else
-    {
-        [self unschedule:@selector(updateTimer)];
-    }
-
-    
-}
-
--(void)checkTimer
-{
-    [self schedule:@selector(updateTimer) interval:1.0];
-
-}
+//-(void)checkTimer
+//{
+//    [self schedule:@selector(updateTimer) interval:1.0];
+//
+//}
 
 -(void)iLost
 {
@@ -555,6 +904,16 @@ static int SECOND_PER_LEVEL = 5;
     }
 }
 
+-(void)checkForPortal
+{
+    if (CGRectIntersectsRect(character.boundingBox, _portal1Start.boundingBox))
+    {
+//        [character runAction:[CCActionDelay actionWithDuration:2]];
+        character.position = ccp(_portal1End.position.x+16, _portal1End.position.y+16);
+        
+    }
+}
+
 -(void)executeInstruction
 {
     if ([instructionSet count] != 0 && !(won)) {
@@ -586,8 +945,11 @@ static int SECOND_PER_LEVEL = 5;
         
         [[SaveManager sharedManager] saveBarrelCount:barrelCounts];
         
+        
+        
         character.accelerationModeEnabled = true;
-        character.animationDuration = 0.5;
+        character.animationDuration = 0.25;
+        _acceleration.visible = false;
     }
 }
 
@@ -630,5 +992,243 @@ static int SECOND_PER_LEVEL = 5;
     }
     
 }
+
+-(void)level1TutorialStep1
+{
+    
+    _hightLightParticleForMoveForward.visible = false;
+    _hightLightParticleForRight.visible = false;
+    
+    _startEngineButton.visible=false;
+//    _turnLeftButton.visible = false;
+    _turnRightButton.visible = false;
+    _goUpButton.visible = false;
+    _clearButton.visible = false;
+    _menuButton.visible = false;
+    
+//    _arrow1.visible = false;
+    _arrow3.visible = false;
+    _arrow2.visible = false;
+//    _moveForwardLabel.visible = false;
+    
+    _tutorialLabel = [CCBReader load:@"InstructionLabel/RotateLeftIns"];
+    [_tutorialLabel setAnchorPoint:ccp(0.5, 0.5)];
+    
+    _tutorialLabel.position = ccp(_turnLeftButton.position.x * 320, _turnLeftButton.position.y * 384 + 100);
+    [self addChild:_tutorialLabel];
+}
+
+-(void)level1TutorialStep2
+{
+
+    _turnLeftButton.visible = false;
+    _arrow1.visible = false;
+    
+    _hightLightParticleForMoveForward.visible = true;
+    _hightLightParticleForLeft.visible = false;
+    
+    _goUpButton.visible = true;
+    _arrow2.visible = true;
+
+//    _moveForwardLabel.visible = true;
+
+    
+    [_tutorialLabel removeFromParent];
+    _tutorialLabel = [CCBReader load:@"InstructionLabel/MoveForwardIns"];
+    _tutorialLabel.position = ccp(_goUpButton.position.x * 320, _goUpButton.position.y * 384 + 100);
+    [self addChild:_tutorialLabel];
+    
+}
+-(void)level1TutorialStep3
+{
+    _goUpButton.visible = false;
+    _arrow2.visible = false;
+    
+    _hightLightParticleForMoveForward.visible = false;
+    
+//    _moveForwardLabel.visible = false;
+    
+    _startEngineButton.visible = true;
+    [_tutorialLabel removeFromParent];
+    _tutorialLabel = [CCBReader load:@"InstructionLabel/StartIns"];
+
+    _tutorialLabel.position = ccp(_startEngineButton.position.x * 320, _startEngineButton.position.y * 384 + 100);
+    [self addChild:_tutorialLabel];
+}
+
+-(void)level2TutorialStep1
+{
+    _hightLightParticleForMoveForward.visible = false;
+    _hightLightParticleForRight.visible = false;
+    
+    _startEngineButton.visible=false;
+    //    _turnLeftButton.visible = false;
+    _turnRightButton.visible = false;
+    _goUpButton.visible = false;
+    _clearButton.visible = false;
+    _menuButton.visible = false;
+    
+    //    _arrow1.visible = false;
+    _arrow3.visible = false;
+    _arrow2.visible = false;
+    //    _moveForwardLabel.visible = false;
+    
+    _tutorialLabel = [CCBReader load:@"InstructionLabel/RotateLeftIns"];
+    [_tutorialLabel setAnchorPoint:ccp(0.5, 0.5)];
+    
+    _tutorialLabel.position = ccp(_turnLeftButton.position.x * 320, _turnLeftButton.position.y * 384 + 100);
+    [self addChild:_tutorialLabel];
+    
+}
+-(void)level2TutorialStep2
+{
+    
+    _turnLeftButton.visible = false;
+    _arrow1.visible = false;
+    
+    _hightLightParticleForMoveForward.visible = true;
+    _hightLightParticleForLeft.visible = false;
+    
+    _goUpButton.visible = true;
+    _arrow2.visible = true;
+    
+    //    _moveForwardLabel.visible = true;
+    
+    
+    [_tutorialLabel removeFromParent];
+    _tutorialLabel = [CCBReader load:@"InstructionLabel/MoveForwardIns"];
+    _tutorialLabel.position = ccp(_goUpButton.position.x * 320, _goUpButton.position.y * 384 + 100);
+    [self addChild:_tutorialLabel];
+    
+}
+
+-(void)level2TutorialStep3
+{
+    _goUpButton.visible = false;
+    _arrow2.visible = false;
+    
+    _hightLightParticleForMoveForward.visible = false;
+    
+    //    _moveForwardLabel.visible = false;
+    
+    _startEngineButton.visible = true;
+    [_tutorialLabel removeFromParent];
+    _tutorialLabel = [CCBReader load:@"InstructionLabel/StartIns"];
+    
+    _tutorialLabel.position = ccp(_startEngineButton.position.x * 320, _startEngineButton.position.y * 384 + 100);
+    [self addChild:_tutorialLabel];
+
+    
+}
+
+-(void)level3TutorialStep1
+{
+    _hightLightParticleForMoveForward.visible = false;
+    _hightLightParticleForRight.visible = false;
+    
+    _startEngineButton.visible=false;
+    //    _turnLeftButton.visible = false;
+    _turnRightButton.visible = false;
+    _goUpButton.visible = false;
+    _clearButton.visible = false;
+    _menuButton.visible = false;
+    
+    //    _arrow1.visible = false;
+    _arrow3.visible = false;
+    _arrow2.visible = false;
+    //    _moveForwardLabel.visible = false;
+    
+    _tutorialLabel = [CCBReader load:@"InstructionLabel/RotateLeftIns"];
+    [_tutorialLabel setAnchorPoint:ccp(0.5, 0.5)];
+    
+    _tutorialLabel.position = ccp(_turnLeftButton.position.x * 320, _turnLeftButton.position.y * 384 + 100);
+    [self addChild:_tutorialLabel];
+    
+}
+-(void)level3TutorialStep2
+{
+    if (level3isAboutDone)
+    {
+        _hightLightParticleForRight.visible = false;
+        _arrow3.visible = false;
+        _turnRightButton.visible = false;
+    }
+    _turnLeftButton.visible = false;
+    _arrow1.visible = false;
+    _hightLightParticleForLeft.visible = false;
+    
+
+    _hightLightParticleForMoveForward.visible = true;
+    _goUpButton.visible = true;
+    _arrow2.visible = true;
+    
+    //    _moveForwardLabel.visible = true;
+    
+    
+    [_tutorialLabel removeFromParent];
+    _tutorialLabel = [CCBReader load:@"InstructionLabel/MoveForwardIns"];
+    _tutorialLabel.position = ccp(_goUpButton.position.x * 320, _goUpButton.position.y * 384 + 100);
+    [self addChild:_tutorialLabel];
+    
+}
+-(void)level3TutorialStep3
+{
+    _goUpButton.visible = false;
+    _arrow2.visible = false;
+    _hightLightParticleForMoveForward.visible = false;
+
+    
+    _hightLightParticleForRight.visible = true;
+    _arrow3.visible = true;
+    _turnRightButton.visible = true;
+    
+    
+    //    _moveForwardLabel.visible = true;
+    
+    
+    [_tutorialLabel removeFromParent];
+    _tutorialLabel = [CCBReader load:@"InstructionLabel/RotateRightIns"];
+    _tutorialLabel.position = ccp(_turnRightButton.position.x * 320, _turnRightButton.position.y * 384 + 100);
+    [self addChild:_tutorialLabel];
+    
+}
+-(void)level3TutorialStep4
+{
+    _goUpButton.visible = false;
+    _arrow2.visible = false;
+    _hightLightParticleForMoveForward.visible = false;
+    
+
+    
+    _startEngineButton.visible = true;
+    [_tutorialLabel removeFromParent];
+    _tutorialLabel = [CCBReader load:@"InstructionLabel/StartIns"];
+    
+    _tutorialLabel.position = ccp(_startEngineButton.position.x * 320, _startEngineButton.position.y * 384 + 100);
+    [self addChild:_tutorialLabel];
+
+    
+}
+
+-(void)tick:(CCTime)dt
+{
+    if(won || isAboutToDemote)
+        return;
+    
+    mTimeInSec +=dt;
+    
+    
+    float digit_min = mTimeInSec/60.0f;
+    float digit_sec =((int) mTimeInSec%60);
+    
+    
+    int min = (int)digit_min;
+    int sec = (int)digit_sec;
+    
+    
+    [_timerLabel setString:[NSString stringWithFormat:@"%.2d:%.2d", min,sec]];
+    
+}
+
 
 @end

@@ -49,7 +49,7 @@
 				<key>customClass</key>
 				<string></string>
 				<key>displayName</key>
-				<string>Petroel</string>
+				<string>Barrel</string>
 				<key>memberVarAssignmentName</key>
 				<string></string>
 				<key>memberVarAssignmentType</key>
@@ -110,7 +110,7 @@
 						<key>value</key>
 						<array>
 							<string></string>
-							<string>ArtWorks/rsz_barrel.png</string>
+							<string>ArtWorks/rsz_lightningbarrel.png</string>
 						</array>
 					</dict>
 					<dict>

@@ -224,7 +224,7 @@
 						<string>Text</string>
 						<key>value</key>
 						<array>
-							<string>Demoted!!!
+							<string>Demoted!
 Out of Stars</string>
 							<false/>
 						</array>
@@ -374,6 +374,8 @@ Out of Stars</string>
 						</array>
 					</dict>
 				</array>
+				<key>selected</key>
+				<true/>
 			</dict>
 			<dict>
 				<key>UUID</key>

@@ -12,30 +12,32 @@ static NSString* const kplayerNormalMapLevel = @"playerNormalMapLevel";
 static NSString* const kcurrentPlayingmap = @"currentPlayingmap";
 static NSString* const kstarCounts = @"starCounts";
 static NSString* const kbarrelCounts = @"barrelCounts";
-static NSString* const kisNotNewbie = @"isNotNewbie";
+static NSString* const kplayerHighScoreRecord = @"playerHighScoreRecord";
+
+//static NSString* const kisNotNewbie = @"isNotNewbie";
 
 
 
 @implementation SaveManager
 
 
--(void)saveIsNotNewbie: (BOOL)isNotNewbie
-{
-    [[NSUserDefaults standardUserDefaults] setBool:isNotNewbie forKey:kisNotNewbie];
-    [[NSUserDefaults standardUserDefaults] synchronize];
-
-    
-}
--(BOOL)getIsNotNewbie
-{
-    return [[NSUserDefaults standardUserDefaults] boolForKey:kisNotNewbie];
-}
--(void)resetIsNotNewbie
-{
-    [[NSUserDefaults standardUserDefaults] setBool:true forKey:kisNotNewbie];
-    [[NSUserDefaults standardUserDefaults] synchronize];
-    
-}
+//-(void)saveIsNotNewbie: (BOOL)isNotNewbie
+//{
+//    [[NSUserDefaults standardUserDefaults] setBool:isNotNewbie forKey:kisNotNewbie];
+//    [[NSUserDefaults standardUserDefaults] synchronize];
+//
+//    
+//}
+//-(BOOL)getIsNotNewbie
+//{
+//    return [[NSUserDefaults standardUserDefaults] boolForKey:kisNotNewbie];
+//}
+//-(void)resetIsNotNewbie
+//{
+//    [[NSUserDefaults standardUserDefaults] setBool:true forKey:kisNotNewbie];
+//    [[NSUserDefaults standardUserDefaults] synchronize];
+//    
+//}
 
 -(void)savePlayerNormalMapLevel: (int)playerNormalMapLevel
 {
@@ -45,7 +47,7 @@ static NSString* const kisNotNewbie = @"isNotNewbie";
 
 -(int)getPlayerNormalMapLevel
 {
-    return  [[NSUserDefaults standardUserDefaults] integerForKey:kplayerNormalMapLevel];
+    return  (int)[[NSUserDefaults standardUserDefaults] integerForKey:kplayerNormalMapLevel];
 }
 
 -(void)resetPlayerNormalMapLevel
@@ -82,7 +84,7 @@ static NSString* const kisNotNewbie = @"isNotNewbie";
 }
 
 -(int)getStarCount{
-    return  [[NSUserDefaults standardUserDefaults] integerForKey:kstarCounts];
+    return  (int)[[NSUserDefaults standardUserDefaults] integerForKey:kstarCounts];
     
     
 }
@@ -100,7 +102,7 @@ static NSString* const kisNotNewbie = @"isNotNewbie";
 }
 
 -(int)getBarrelCount{
-    return  [[NSUserDefaults standardUserDefaults] integerForKey:kbarrelCounts];
+    return  (int)[[NSUserDefaults standardUserDefaults] integerForKey:kbarrelCounts];
     
 }
 
@@ -109,6 +111,26 @@ static NSString* const kisNotNewbie = @"isNotNewbie";
     [[NSUserDefaults standardUserDefaults] synchronize];
     
 }
+
+///////
+-(void)savePlayerHighScoreRecord: (NSArray*) playerHighScoreRecord
+{
+    [[NSUserDefaults standardUserDefaults] setObject:playerHighScoreRecord forKey:kplayerHighScoreRecord];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+-(NSArray*)getPlayerHighScoreRecord{
+    return (NSArray*) [[NSUserDefaults standardUserDefaults] objectForKey:kplayerHighScoreRecord];
+}
+
+-(void)resetPlayerHighScoreRecord
+{
+    [[NSUserDefaults standardUserDefaults] setObject:nil forKey:kplayerHighScoreRecord];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+
+}
+
+
 
 +(id)sharedManager
 {

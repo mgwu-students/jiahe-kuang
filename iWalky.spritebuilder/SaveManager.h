@@ -10,9 +10,9 @@
 
 @interface SaveManager : NSObject
 
--(void)saveIsNotNewbie: (BOOL)isNotNewbie;
--(BOOL)getIsNotNewbie;
--(void)resetIsNotNewbie;
+//-(void)saveIsNotNewbie: (BOOL)isNotNewbie;
+//-(BOOL)getIsNotNewbie;
+//-(void)resetIsNotNewbie;
 
 -(void)savePlayerNormalMapLevel: (int)playerNormalMapLevel;
 
@@ -37,6 +37,15 @@
 -(NSString*)getCurrentPlayingMap;
 
 -(void)resetCurrentPlayingMap;
+
+//////
+-(void)savePlayerHighScoreRecord: (NSArray*) playerHighScoreRecord;
+
+-(NSArray*)getPlayerHighScoreRecord;
+
+-(void)resetPlayerHighScoreRecord;
+
+
 
 +(id)sharedManager;
 
