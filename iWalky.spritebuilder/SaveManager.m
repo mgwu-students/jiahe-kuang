@@ -9,10 +9,20 @@
 #import "SaveManager.h"
 
 static NSString* const kplayerNormalMapLevel = @"playerNormalMapLevel";
+
+static NSString* const kplayerHighestLevel = @"playerHighestLevel";
+
 static NSString* const kcurrentPlayingmap = @"currentPlayingmap";
 static NSString* const kstarCounts = @"starCounts";
 static NSString* const kbarrelCounts = @"barrelCounts";
 static NSString* const kplayerHighScoreRecord = @"playerHighScoreRecord";
+static NSString* const kIsSucking = @"isSucking";
+
+static NSString* const kEnginLevel = @"enginLevel";
+static NSString* const kShieldLevel = @"engineLevel";
+static NSString* const kEnergyExtractorLevel = @"energyExtractorLevel";
+static NSString* const kShieldDurability = @"shieldDurability";
+
 
 //static NSString* const kisNotNewbie = @"isNotNewbie";
 
@@ -39,6 +49,47 @@ static NSString* const kplayerHighScoreRecord = @"playerHighScoreRecord";
 //    
 //}
 
+-(void)saveShieldDurability: (int)shieldDurability
+{
+    [MGWU setObject:[NSNumber numberWithInt:shieldDurability] forKey:kShieldDurability];
+
+}
+
+-(int)getshieldDurability
+{
+    return [((NSNumber*)[MGWU objectForKey:kShieldDurability]) intValue];
+
+}
+
+-(void)saveEngineLevel:(int)engineLevel
+{
+    [MGWU setObject:[NSNumber numberWithInt:engineLevel] forKey:kEnginLevel];
+}
+
+-(int)getEngineLevel
+{
+    return [((NSNumber*)[MGWU objectForKey:kEnginLevel]) intValue];
+}
+
+
+-(void)saveIsSucking: (BOOL)isSucking
+{
+    [[NSUserDefaults standardUserDefaults] setBool:isSucking forKey:kIsSucking];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    
+}
+-(BOOL)getIsSucking
+{
+    return (BOOL)[[NSUserDefaults standardUserDefaults] boolForKey:kIsSucking];
+}
+-(void)resetIsSucking
+{
+    [[NSUserDefaults standardUserDefaults] setBool:false forKey:kIsSucking];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+
+}
+
+
 -(void)savePlayerNormalMapLevel: (int)playerNormalMapLevel
 {
     [[NSUserDefaults standardUserDefaults] setInteger:playerNormalMapLevel forKey:kplayerNormalMapLevel];
@@ -55,6 +106,24 @@ static NSString* const kplayerHighScoreRecord = @"playerHighScoreRecord";
     [[NSUserDefaults standardUserDefaults] setInteger:0 forKey:kplayerNormalMapLevel];
     [[NSUserDefaults standardUserDefaults] synchronize];
 
+}
+
+-(void)savePlayerHighestLevel: (int)playerHighestLevel
+{
+    [[NSUserDefaults standardUserDefaults] setInteger:playerHighestLevel forKey:kplayerHighestLevel];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+-(int)getPlayerHighestLevel
+{
+    return  (int)[[NSUserDefaults standardUserDefaults] integerForKey:kplayerHighestLevel];
+}
+
+-(void)resetPlayerHighestLevel
+{
+    [[NSUserDefaults standardUserDefaults] setInteger:0 forKey:kplayerHighestLevel];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    
 }
 
 
@@ -119,7 +188,8 @@ static NSString* const kplayerHighScoreRecord = @"playerHighScoreRecord";
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
--(NSArray*)getPlayerHighScoreRecord{
+-(NSArray*)getPlayerHighScoreRecord
+{
     return (NSArray*) [[NSUserDefaults standardUserDefaults] objectForKey:kplayerHighScoreRecord];
 }
 

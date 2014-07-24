@@ -19,6 +19,15 @@
 -(int)getPlayerNormalMapLevel;
 
 -(void)resetPlayerNormalMapLevel;
+
+/////////
+
+-(void)savePlayerHighestLevel: (int)playerHighestLevel;
+
+-(int)getPlayerHighestLevel;
+
+-(void)resetPlayerHighestLevel;
+
 /////////
 -(void)saveStarCount: (int)starCount;
 
@@ -44,6 +53,16 @@
 -(NSArray*)getPlayerHighScoreRecord;
 
 -(void)resetPlayerHighScoreRecord;
+
+-(void)saveIsSucking: (BOOL)isSucking;
+-(BOOL)getIsSucking;
+-(void)resetIsSucking;
+
+-(void)saveEngineLevel: (int)engineLevel;
+-(int)getEngineLevel;
+
+-(void)saveShieldDurability: (int)shieldDurability;
+-(int)getshieldDurability;
 
 
 

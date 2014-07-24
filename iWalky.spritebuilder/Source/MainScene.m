@@ -23,13 +23,13 @@
 
 
 static int MAPS_PER_LEVEL = 2;
-static int MAX_NUMBER_OF_MAPS = 12;
+static int MAX_NUMBER_OF_MAPS = 16;
 
-static int BRONZE_TIER = 900;
-static int SILVER_TIER = 1000;
-static int GOLD_TIER = 1100;
-static int PLATINUM_TIER = 1120;
-static int DIAMOND_TIER = 1144;
+static int BRONZE_TIER = 1200;
+static int SILVER_TIER = 1290;
+static int GOLD_TIER = 1310;
+static int PLATINUM_TIER = 1330;
+static int DIAMOND_TIER = 1350;
 
 
 
@@ -38,6 +38,18 @@ static int DIAMOND_TIER = 1144;
 
 @implementation MainScene
 {
+    CCButton* _shieldButton;
+    
+    CCNode* _blackHole1;
+    CCNode* _blackHole2;
+    
+    CCLabelTTF* _levelLabelText;
+    CCLabelTTF* _levelDisplayLabel;
+    
+    CCLabelTTF* _menuLabel;
+    CCLabelTTF* _clearLabel;;
+
+    
     CCLabelTTF* _totalHighScoreLabel;
     CCLabelTTF* _rankLabel;
     CCButton* _retryButton;
@@ -58,6 +70,7 @@ static int DIAMOND_TIER = 1144;
     
     CCNode* _portal4Start;
     CCNode* _portal4End;
+
 
     
     CCLabelTTF* _LabelIndicator;
@@ -162,12 +175,15 @@ static int DIAMOND_TIER = 1144;
     if (characterIsAlive)
     {
         [self checkForPortal];
+        [self checkForBlackHole];
         [self checkForBarrel];
         [self checkForStar];
-        
-        [self checkIfIwon];
+
         
         [self checkIfGameFinished];
+
+        [self checkIfIwon];
+        
     }
     
     
@@ -183,7 +199,10 @@ static int DIAMOND_TIER = 1144;
 
 - (void)didLoadFromCCB
 {
-    
+    _shieldButton.visible = false;
+    solarDisruption = false;
+    [[SaveManager sharedManager]resetIsSucking];
+
     mTimeInSec = 0.0f;
     
     [self schedule:@selector(tick:) interval:(1.f)];
@@ -191,7 +210,8 @@ static int DIAMOND_TIER = 1144;
     if ([[SaveManager sharedManager]getPlayerNormalMapLevel] == 0)
     {
         [[SaveManager sharedManager]saveBarrelCount:100];
-        [[SaveManager sharedManager]saveStarCount:1];
+        [[SaveManager sharedManager]saveStarCount:99999];
+//        [[SaveManager sharedManager]saveShieldDurability:5];
     }
     
     [_rotateLeftParticle stopSystem];
@@ -316,8 +336,17 @@ static int DIAMOND_TIER = 1144;
     if (!goPressed) {
 //        [character.animationManager runAnimationsForSequenceNamed:@"pressedAnimation"];
         [_rotateLeftParticle resetSystem];
+        
+        if (solarDisruption)
+        {
+            [instructionSet addObject:@"turnRight"];
 
-        [instructionSet addObject:@"turnLeft"];
+        }
+        
+        else
+        {
+            [instructionSet addObject:@"turnLeft"];
+        }
         
     }
     
@@ -341,10 +370,22 @@ static int DIAMOND_TIER = 1144;
 
 -(void)turnRight
 {
-    if (!goPressed) {
+    if (!goPressed)
+    {
 //        [character.animationManager runAnimationsForSequenceNamed:@"pressedAnimation"];
         [_rotateRightParticle resetSystem];
-        [instructionSet addObject:@"turnRight"];
+        
+        
+        if (solarDisruption)
+        {
+            [instructionSet addObject:@"turnLeft"];
+            
+        }
+        
+        else
+        {
+            [instructionSet addObject:@"turnRight"];
+        }
     }
     
     if (playerMapLevel == 3)
@@ -366,8 +407,12 @@ static int DIAMOND_TIER = 1144;
         if(playerMapLevel > 3)
         {
             _acceleration.visible = true;
+            _shieldButton.visible = true;
+
         }
         
+        _levelLabelText.visible = false;
+        _levelDisplayLabel.visible = false;
         _startEngineButton.visible=false;
         _turnLeftButton.visible = false;
         _turnRightButton.visible = false;
@@ -378,6 +423,9 @@ static int DIAMOND_TIER = 1144;
         _arrow1.visible = false;
         _arrow2.visible = false;
         _arrow3.visible = false;
+        
+        _clearLabel.visible = false;
+        _menuLabel.visible = false;
         
         _hightLightParticleForLeft.visible = false;
         _hightLightParticleForMoveForward.visible = false;
@@ -420,6 +468,7 @@ static int DIAMOND_TIER = 1144;
 
                 isAboutToDemote = true;
                 playerMapLevel--;
+                [[SaveManager sharedManager] savePlayerHighestLevel:playerMapLevel];
                 [[SaveManager sharedManager] savePlayerNormalMapLevel:playerMapLevel];
                 [[SaveManager sharedManager] resetCurrentPlayingMap];
                 
@@ -476,15 +525,21 @@ static int DIAMOND_TIER = 1144;
 
 -(void)checkIfIwon
 {
-
     
-    if (CGRectIntersectsRect(character.boundingBox, _endTile.boundingBox) && (instructionCounts == [instructionSet count] - 1))
+    if (CGRectIntersectsRect(character.boundingBox, _endTile.boundingBox) &&
+        (instructionCounts == [instructionSet count] - 1) &&
+        character.position.x == _endTile.position.x + 16 &&
+        character.position.y == _endTile.position.y + 16
+
+        )
     {
         CCLOG(@"Player At %f, %f", character.position.x, character.position.y);
         CCLOG(@"Entiled at %f, %f", _endTile.position.x, character.position.y);
         
-            won = true;
-            _menuButton.visible = true;
+        won = true;
+        _menuButton.visible = true;
+        _menuLabel.visible = true;
+
         _acceleration.visible = false;
         
             
@@ -548,6 +603,7 @@ static int DIAMOND_TIER = 1144;
             {
                 sum += [num intValue];
             }
+            
             [_totalHighScoreLabel setString:[NSString stringWithFormat:@"Best Scores Total: %d", sum]];
             
             if (sum <= BRONZE_TIER)
@@ -599,50 +655,37 @@ static int DIAMOND_TIER = 1144;
 {
     if (!(won))
     {
-        for (CCNode* node in tileNode.children )
-        {
-            if ((CGRectIntersectsRect(character.boundingBox, node.boundingBox)))
-            {
-                return;
-                
-            }
-            
+        if ([character isShieldActivated]) {
+            return;
         }
-//        
-//        characterIsAlive = FALSE;
-//        
-//        character.visible = FALSE;
-//
-//
-//        
-//        
-//        Explosion* characterExplosion = [Explosion explosion];
-//        [character.parent addChild:characterExplosion];
-//        characterExplosion.position = character.position;
-//        
-//        CCActionSequence* resetSequence = [CCActionSequence
-//                                           actions:
-//                                           [CCActionDelay actionWithDuration:characterExplosion.duration * 2],
-//                                           [CCActionCallBlock
-//                                            actionWithBlock:^{
-//                                                [self Clear];
-//                                            }],
-//                                           nil];
-//        
-//        [self runAction:resetSequence];
-        
-        [self iLost];
-        
+        else
+        {
+            for (CCNode* node in tileNode.children )
+            {
+                if ((CGRectIntersectsRect(character.boundingBox, node.boundingBox)))
+                {
+                    return;
+                }
+            
+            }
+        }
     }
-    
-    
+    [self iLost];
 }
+
 
 -(void)checkIfGameFinished
 {
     if (instructionCounts == [instructionSet count] - 1)
     {
-        if (!CGRectIntersectsRect(character.boundingBox, _endTile.boundingBox))
+        CCLOG(@"I am here");
+        CCLOG(@"x: %f %f)", character.position.x, _endTile.position.x + 16);
+        CCLOG(@"y: %f %f)", character.position.y, _endTile.position.y + 16);
+
+
+        
+        if (character.position.x != (_endTile.position.x + 16) ||
+              character.position.y != (_endTile.position.y + 16))
         {
             CCLOG(@"Game never finished");
             goPressed = false;
@@ -665,6 +708,7 @@ static int DIAMOND_TIER = 1144;
         else if([instructionSet count] > 0 && !won)
         {
             playerMapLevel--;
+            [[SaveManager sharedManager] savePlayerHighestLevel:playerMapLevel];
             [[SaveManager sharedManager] savePlayerNormalMapLevel:playerMapLevel];
             [[SaveManager sharedManager] resetCurrentPlayingMap];
         }
@@ -702,6 +746,14 @@ static int DIAMOND_TIER = 1144;
 
     }
     
+    if (playerMapLevel == 16)
+    {
+        solarDisruption = true;
+    }
+    
+    
+    [_levelDisplayLabel setString:[NSString stringWithFormat:@"%d", playerMapLevel]];
+    
     
 }
 
@@ -709,10 +761,10 @@ static int DIAMOND_TIER = 1144;
 {
     currentPlayingMap = [[SaveManager sharedManager] getCurrentPlayingMap];
     
-    if ( playerMapLevel == 11) {
-        solarDisruption = true;
-        
-    }
+//    if ( playerMapLevel == 11) {
+//        solarDisruption = true;
+//        
+//    }
     
     if (currentPlayingMap == nil)
     {
@@ -908,11 +960,48 @@ static int DIAMOND_TIER = 1144;
 {
     if (CGRectIntersectsRect(character.boundingBox, _portal1Start.boundingBox))
     {
-//        [character runAction:[CCActionDelay actionWithDuration:2]];
+        
+//        [character stopTailParticleWhenEnterPortal];
+
         character.position = ccp(_portal1End.position.x+16, _portal1End.position.y+16);
+    }
+    
+    if (CGRectIntersectsRect(character.boundingBox, _portal2Start.boundingBox))
+    {
+//        [character stopTailParticleWhenEnterPortal];
+
+        character.position = ccp(_portal2End.position.x+16, _portal2End.position.y+16);
+    }
+    
+    if (CGRectIntersectsRect(character.boundingBox, _portal3Start.boundingBox))
+    {
+//        [character stopTailParticleWhenEnterPortal];
+        character.position = ccp(_portal3End.position.x+16, _portal3End.position.y+16);
         
     }
+//
+//    if (CGRectIntersectsRect(character.boundingBox, _portal4Start.boundingBox))
+//    {
+//        character.position = ccp(_portal4End.position.x+16, _portal4End.position.y+16);
+//        
+//    }
 }
+
+-(void)checkForBlackHole
+{
+    if (CGRectIntersectsRect(character.boundingBox, _blackHole1.boundingBox) || CGRectIntersectsRect(character.boundingBox, _blackHole2.boundingBox)) {
+        CCLOG(@"On a blackHole");
+        [[SaveManager sharedManager]saveIsSucking:true];
+    }
+    
+    else
+    {
+        [[SaveManager sharedManager]resetIsSucking];
+    }
+    
+    
+}
+
 
 -(void)executeInstruction
 {
@@ -920,16 +1009,19 @@ static int DIAMOND_TIER = 1144;
         if ([instructionSet[instructionCounts] isEqualToString:@"goForward"])
         {
             [character move];
+
         }
         
         if ([instructionSet[instructionCounts] isEqualToString:@"turnRight"])
         {
             [character rotateRight];
+
         }
         
         if ([instructionSet[instructionCounts] isEqualToString:@"turnLeft"])
         {
             [character rotateLeft];
+
         }
     }
 }
@@ -948,7 +1040,7 @@ static int DIAMOND_TIER = 1144;
         
         
         character.accelerationModeEnabled = true;
-        character.animationDuration = 0.25;
+        [character speedUp];
         _acceleration.visible = false;
     }
 }
@@ -1004,7 +1096,9 @@ static int DIAMOND_TIER = 1144;
     _turnRightButton.visible = false;
     _goUpButton.visible = false;
     _clearButton.visible = false;
+    _clearLabel.visible = false;
     _menuButton.visible = false;
+    _menuLabel.visible = false;
     
 //    _arrow1.visible = false;
     _arrow3.visible = false;
@@ -1066,7 +1160,9 @@ static int DIAMOND_TIER = 1144;
     _turnRightButton.visible = false;
     _goUpButton.visible = false;
     _clearButton.visible = false;
+    _clearLabel.visible = false;
     _menuButton.visible = false;
+    _menuLabel.visible = false;
     
     //    _arrow1.visible = false;
     _arrow3.visible = false;
@@ -1131,7 +1227,9 @@ static int DIAMOND_TIER = 1144;
     _turnRightButton.visible = false;
     _goUpButton.visible = false;
     _clearButton.visible = false;
+    _clearLabel.visible = false;
     _menuButton.visible = false;
+    _menuLabel.visible = false;
     
     //    _arrow1.visible = false;
     _arrow3.visible = false;
@@ -1230,5 +1328,10 @@ static int DIAMOND_TIER = 1144;
     
 }
 
+-(void)activateShield
+{
+    [character activateShield];
+    _shieldButton.visible = false;
 
+}
 @end

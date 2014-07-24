@@ -27,16 +27,19 @@
 
 -(void)goToPlayerProfile
 {
+    CCScene* sceneAboutToEnter = [CCBReader loadAsScene:@"PlayerProfile"];
+    CCTransition *transition = [CCTransition transitionFadeWithDuration:0.8f];
+    [[CCDirector sharedDirector] presentScene:sceneAboutToEnter withTransition:transition];
+}
+
+-(void)GoToLevelScreen
+{
+    CCScene* sceneAboutToEnter = [CCBReader loadAsScene:@"LevelScreen"];
+    CCTransition *transition = [CCTransition transitionFadeWithDuration:0.8f];
+    [[CCDirector sharedDirector] presentScene:sceneAboutToEnter withTransition:transition];
     
 }
 
--(void)ResetPlayerProfile
-{
-    [[SaveManager sharedManager] resetPlayerNormalMapLevel];
-    [[SaveManager sharedManager] resetCurrentPlayingMap];
-    [[SaveManager sharedManager] resetStarCount];
-    [[SaveManager sharedManager] resetBarrelCount];
-    [[SaveManager sharedManager] resetPlayerHighScoreRecord];
-}
+
 
 @end

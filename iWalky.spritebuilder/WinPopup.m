@@ -20,6 +20,14 @@
     int tempPlayerLevel = [[SaveManager sharedManager]getPlayerNormalMapLevel];
     tempPlayerLevel++;
     
+    
+    if (tempPlayerLevel > [[SaveManager sharedManager] getPlayerHighestLevel])
+    {
+        [[SaveManager sharedManager] savePlayerHighestLevel:tempPlayerLevel];
+
+    }
+    
+    
     [[SaveManager sharedManager] savePlayerNormalMapLevel:tempPlayerLevel];
     [[SaveManager sharedManager] resetCurrentPlayingMap];
     

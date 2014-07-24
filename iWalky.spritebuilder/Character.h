@@ -17,7 +17,6 @@
 
 @interface Character : CCNode
 
-
 @property (nonatomic, weak) NSObject <CharacterDelegate>* delegate;
 @property (nonatomic, assign)float animationDuration;
 @property (nonatomic, assign)BOOL accelerationModeEnabled;
@@ -29,5 +28,9 @@
 
 -(void)rotateLeft;
 -(void)rotateRight;
+-(void)speedUp;
+-(void)activateShield;
+-(BOOL)isShieldActivated;
+//-(void)stopTailParticleWhenEnterPortal;
 
 @end

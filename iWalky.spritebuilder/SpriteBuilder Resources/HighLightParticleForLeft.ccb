@@ -218,9 +218,9 @@
 						<real>0.10000000149011612</real>
 					</array>
 					<array>
-						<real>1</real>
-						<real>0.95765495300292969</real>
-						<real>0.13150696456432343</real>
+						<real>0.0</real>
+						<real>0.0</real>
+						<real>0.0</real>
 						<real>0.0</real>
 					</array>
 				</array>
@@ -239,9 +239,9 @@
 						<real>0.0</real>
 					</array>
 					<array>
-						<real>1</real>
-						<real>0.9379500150680542</real>
-						<real>0.1177179366350174</real>
+						<real>0.0</real>
+						<real>0.0</real>
+						<real>0.0</real>
 						<real>0.0</real>
 					</array>
 				</array>
@@ -307,8 +307,6 @@
 				<string>ccbResources/ccbParticleStars.png</string>
 			</dict>
 		</array>
-		<key>selected</key>
-		<true/>
 	</dict>
 	<key>notes</key>
 	<array/>
