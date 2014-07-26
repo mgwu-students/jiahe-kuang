@@ -254,6 +254,7 @@ typedef enum{
 -(void)update:(CCTime)delta
 {
     _tailParticle.angle = _characterSprite.rotation - 180.f;
+    
     if (shieldActivated)
     {
         CCLOG(@"%d", shieldTimer);
@@ -284,32 +285,51 @@ typedef enum{
         normalizedRotation += 360.f;
     }
     
-    if ([[SaveManager sharedManager] getIsSucking])
+//    if ([[SaveManager sharedManager] getIsSucking])
+//    {
+//        if (normalizedRotation < 315.1f && normalizedRotation > 314.9f)
+//        {
+//            return kDirection45UpRight;
+//        }
+//        
+//        if (normalizedRotation < 225.1f && normalizedRotation > 224.9f)
+//        {
+//            CCLOG(@"pointing at 45 up left");
+//            return kDirection45UpLeft;
+//        }
+//        
+//        if (normalizedRotation < 45.1f && normalizedRotation > 44.9f)
+//        {
+//            return kDirection45DownRight;
+//        }
+//        
+//        if (normalizedRotation < 135.1&& normalizedRotation > 134.9f)
+//        {
+//            return kDirection45DownLeft;
+//        }
+//        
+//    }
+    
+    if (normalizedRotation < 315.1f && normalizedRotation > 314.9f)
     {
-        if (normalizedRotation < 315.1f && normalizedRotation > 314.9f)
-        {
-            return kDirection45UpRight;
-        }
-        
-        if (normalizedRotation < 225.1f && normalizedRotation > 224.9f)
-        {
-            CCLOG(@"pointing at 45 up left");
-            return kDirection45UpLeft;
-        }
-        
-        if (normalizedRotation < 45.1f && normalizedRotation > 44.9f)
-        {
-            return kDirection45DownRight;
-        }
-        
-        if (normalizedRotation < 135.1&& normalizedRotation > 134.9f)
-        {
-            return kDirection45DownLeft;
-        }
-        
-        
+        return kDirection45UpRight;
     }
     
+    if (normalizedRotation < 225.1f && normalizedRotation > 224.9f)
+    {
+        CCLOG(@"pointing at 45 up left");
+        return kDirection45UpLeft;
+    }
+    
+    if (normalizedRotation < 45.1f && normalizedRotation > 44.9f)
+    {
+        return kDirection45DownRight;
+    }
+    
+    if (normalizedRotation < 135.1&& normalizedRotation > 134.9f)
+    {
+        return kDirection45DownLeft;
+    }
 
         if (normalizedRotation < 0.1f && normalizedRotation > -.1f)
         {

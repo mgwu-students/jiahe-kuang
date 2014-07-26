@@ -1586,8 +1586,6 @@
 						<string>DowngradeParticle.ccb</string>
 					</dict>
 				</array>
-				<key>selected</key>
-				<true/>
 			</dict>
 			<dict>
 				<key>UUID</key>

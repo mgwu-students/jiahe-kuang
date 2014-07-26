@@ -96,8 +96,8 @@
 						<string>ScaleLock</string>
 						<key>value</key>
 						<array>
-							<real>0.60000002384185791</real>
-							<real>0.75</real>
+							<real>0.5</real>
+							<real>0.69999998807907104</real>
 							<false/>
 							<integer>0</integer>
 						</array>
@@ -140,9 +140,9 @@
 				<key>displayName</key>
 				<string>CCLabelTTF</string>
 				<key>memberVarAssignmentName</key>
-				<string></string>
+				<string>_tutorialBannerLabel</string>
 				<key>memberVarAssignmentType</key>
-				<integer>1</integer>
+				<integer>2</integer>
 				<key>properties</key>
 				<array>
 					<dict>
@@ -198,9 +198,7 @@
 						<string>Text</string>
 						<key>value</key>
 						<array>
-							<string>Plot a complete course 
-before the SpaceShip 
-moves</string>
+							<string>Nil</string>
 							<false/>
 						</array>
 					</dict>
@@ -219,7 +217,7 @@ moves</string>
 						<string>FloatScale</string>
 						<key>value</key>
 						<array>
-							<real>20</real>
+							<real>18</real>
 							<integer>0</integer>
 						</array>
 					</dict>
@@ -349,6 +347,8 @@ moves</string>
 						</array>
 					</dict>
 				</array>
+				<key>selected</key>
+				<true/>
 			</dict>
 		</array>
 		<key>customClass</key>
@@ -421,8 +421,6 @@ moves</string>
 				</array>
 			</dict>
 		</array>
-		<key>selected</key>
-		<true/>
 	</dict>
 	<key>notes</key>
 	<array/>

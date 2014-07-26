@@ -28,6 +28,11 @@
 
 -(void)Play
 {
+    int tempStarCount = [[SaveManager sharedManager]getStarCount];
+    
+    if (tempStarCount > 0) {
+        [[SaveManager sharedManager]saveStarCount:(tempStarCount-1)];
+    }
     [[SaveManager sharedManager] savePlayerNormalMapLevel:_playThisLevel];
     [[SaveManager sharedManager] resetCurrentPlayingMap];
     CCScene* sceneAboutToEnter = [CCBReader loadAsScene:@"MainScene"];

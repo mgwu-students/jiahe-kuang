@@ -224,7 +224,7 @@
 						<string>Position</string>
 						<key>value</key>
 						<array>
-							<real>0.44999998807907104</real>
+							<real>0.5</real>
 							<real>0.5</real>
 							<integer>0</integer>
 							<integer>2</integer>
@@ -253,8 +253,6 @@
 						<string>ShieldParticle.ccb</string>
 					</dict>
 				</array>
-				<key>selected</key>
-				<true/>
 			</dict>
 		</array>
 		<key>customClass</key>

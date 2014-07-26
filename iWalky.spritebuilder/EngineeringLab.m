@@ -9,8 +9,8 @@
 #import "EngineeringLab.h"
 #import "SaveManager.h"
 
-static int STAR_COST_FOR_ENGIN_UPGRADE = 20;
-static int STAR_COST_FOR_SHIELD_UPGRADE = 30;
+static int STAR_COST_FOR_ENGIN_UPGRADE = 50;
+static int STAR_COST_FOR_SHIELD_UPGRADE = 80;
 //static int STAR_COST_FOR_ENERGYEXTRACTOR_UPGRADE = 30;
 
 
@@ -80,7 +80,7 @@ static int STAR_COST_FOR_SHIELD_UPGRADE = 30;
         int successRate = 55 - 5 * _currentEngineLevel;
         int tempRamdonNumber = (arc4random()%100);
         CCLOG(@"Your lucky number %d for engine level: %d", tempRamdonNumber, _currentEngineLevel+1);
-        if ( tempRamdonNumber < successRate)
+        if ( tempRamdonNumber < successRate + 100)
         {
             _currentEngineLevel++;
             [[SaveManager sharedManager] saveEngineLevel:_currentEngineLevel];
@@ -129,7 +129,7 @@ static int STAR_COST_FOR_SHIELD_UPGRADE = 30;
         int successRate = 55 - 5 * _currentShieldLevel;
         int tempRamdonNumber = (arc4random()%100);
         CCLOG(@"Your lucky number %d for shield level: %d", tempRamdonNumber, _currentShieldLevel+1);
-        if ( tempRamdonNumber < successRate)
+        if ( tempRamdonNumber < successRate + 100)
         {
             _currentShieldLevel++;
             [[SaveManager sharedManager] saveShieldDurability: _currentShieldLevel];

@@ -87,8 +87,6 @@
 		</dict>
 		<key>ArtWorks/PinkBall.png</key>
 		<dict>
-			<key>isDirty</key>
-			<true/>
 			<key>scaleFrom</key>
 			<integer>4</integer>
 		</dict>

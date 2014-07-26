@@ -96,8 +96,8 @@
 						<string>ScaleLock</string>
 						<key>value</key>
 						<array>
-							<real>1.7999999523162842</real>
-							<real>1</real>
+							<real>2</real>
+							<real>1.5</real>
 							<false/>
 							<integer>0</integer>
 						</array>
@@ -127,6 +127,8 @@
 						</array>
 					</dict>
 				</array>
+				<key>selected</key>
+				<true/>
 			</dict>
 			<dict>
 				<key>UUID</key>
@@ -161,7 +163,7 @@
 						<key>value</key>
 						<array>
 							<real>0.5</real>
-							<real>0.47999998927116394</real>
+							<real>0.37999999523162842</real>
 							<integer>0</integer>
 							<integer>2</integer>
 							<integer>2</integer>
@@ -185,8 +187,8 @@
 						<string>ScaleLock</string>
 						<key>value</key>
 						<array>
-							<real>1</real>
-							<real>1</real>
+							<real>0.7870018482208252</real>
+							<real>0.82242375612258911</real>
 							<false/>
 							<integer>0</integer>
 						</array>
@@ -198,9 +200,8 @@
 						<string>Text</string>
 						<key>value</key>
 						<array>
-							<string>Tap to enter 
-Command:
-Move Forward</string>
+							<string>Fly Forward
+1 Tile</string>
 							<false/>
 						</array>
 					</dict>
@@ -219,7 +220,7 @@ Move Forward</string>
 						<string>FloatScale</string>
 						<key>value</key>
 						<array>
-							<real>10</real>
+							<real>18</real>
 							<integer>0</integer>
 						</array>
 					</dict>
@@ -349,8 +350,6 @@ Move Forward</string>
 						</array>
 					</dict>
 				</array>
-				<key>selected</key>
-				<true/>
 			</dict>
 		</array>
 		<key>customClass</key>

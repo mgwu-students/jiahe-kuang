@@ -2042,7 +2042,7 @@
 						<string>String</string>
 						<key>value</key>
 						<array>
-							<string>Go</string>
+							<string>Start Engine</string>
 							<false/>
 						</array>
 					</dict>
@@ -5673,8 +5673,6 @@
 						</array>
 					</dict>
 				</array>
-				<key>selected</key>
-				<true/>
 			</dict>
 		</array>
 		<key>customClass</key>

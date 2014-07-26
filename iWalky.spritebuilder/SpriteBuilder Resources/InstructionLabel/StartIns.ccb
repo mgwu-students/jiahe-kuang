@@ -96,8 +96,8 @@
 						<string>ScaleLock</string>
 						<key>value</key>
 						<array>
-							<real>1.7999999523162842</real>
-							<real>1</real>
+							<real>2</real>
+							<real>1.5</real>
 							<false/>
 							<integer>0</integer>
 						</array>
@@ -127,6 +127,8 @@
 						</array>
 					</dict>
 				</array>
+				<key>selected</key>
+				<true/>
 			</dict>
 			<dict>
 				<key>UUID</key>
@@ -161,7 +163,7 @@
 						<key>value</key>
 						<array>
 							<real>0.5</real>
-							<real>0.46000000834465027</real>
+							<real>0.37999999523162842</real>
 							<integer>0</integer>
 							<integer>2</integer>
 							<integer>2</integer>
@@ -198,8 +200,7 @@
 						<string>Text</string>
 						<key>value</key>
 						<array>
-							<string>Tap to move
-the Ship</string>
+							<string>Start Ship</string>
 							<false/>
 						</array>
 					</dict>
@@ -218,7 +219,7 @@ the Ship</string>
 						<string>FloatScale</string>
 						<key>value</key>
 						<array>
-							<real>12</real>
+							<real>18</real>
 							<integer>0</integer>
 						</array>
 					</dict>
@@ -348,8 +349,6 @@ the Ship</string>
 						</array>
 					</dict>
 				</array>
-				<key>selected</key>
-				<true/>
 			</dict>
 		</array>
 		<key>customClass</key>
