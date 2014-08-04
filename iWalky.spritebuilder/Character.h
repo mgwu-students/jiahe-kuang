@@ -20,6 +20,8 @@
 @property (nonatomic, weak) NSObject <CharacterDelegate>* delegate;
 @property (nonatomic, assign)float animationDuration;
 @property (nonatomic, assign)BOOL accelerationModeEnabled;
+@property (nonatomic, strong) CCSprite* characterSprite;
+
 
 
 

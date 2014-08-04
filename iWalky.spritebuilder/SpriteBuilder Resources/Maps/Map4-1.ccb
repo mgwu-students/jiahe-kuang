@@ -10,7 +10,7 @@
 		<false/>
 	</dict>
 	<key>UUID</key>
-	<integer>23</integer>
+	<integer>62</integer>
 	<key>centeredOrigin</key>
 	<false/>
 	<key>currentResolution</key>
@@ -41,14 +41,14 @@
 		<array>
 			<dict>
 				<key>UUID</key>
-				<integer>18</integer>
+				<integer>23</integer>
 				<key>baseClass</key>
 				<string>CCNode</string>
 				<key>children</key>
 				<array>
 					<dict>
 						<key>UUID</key>
-						<integer>19</integer>
+						<integer>24</integer>
 						<key>baseClass</key>
 						<string>CCBFile</string>
 						<key>children</key>
@@ -104,13 +104,13 @@
 								<key>type</key>
 								<string>CCBFile</string>
 								<key>value</key>
-								<string>TileNode/StartTile.ccb</string>
+								<string>TileNode/StartTile/StartTilePointingUp.ccb</string>
 							</dict>
 						</array>
 					</dict>
 					<dict>
 						<key>UUID</key>
-						<integer>21</integer>
+						<integer>43</integer>
 						<key>baseClass</key>
 						<string>CCBFile</string>
 						<key>children</key>
@@ -166,7 +166,7 @@
 								<key>type</key>
 								<string>CCBFile</string>
 								<key>value</key>
-								<string>TileNode/EndTile.ccb</string>
+								<string>TileNode/EndTile/EndTilePointingDown.ccb</string>
 							</dict>
 						</array>
 					</dict>

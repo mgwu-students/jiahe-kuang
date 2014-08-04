@@ -104,7 +104,7 @@
 								<key>type</key>
 								<string>CCBFile</string>
 								<key>value</key>
-								<string>TileNode/StartTile.ccb</string>
+								<string>TileNode/StartTile/StartTilePointingUp.ccb</string>
 							</dict>
 						</array>
 					</dict>
@@ -166,7 +166,7 @@
 								<key>type</key>
 								<string>CCBFile</string>
 								<key>value</key>
-								<string>TileNode/EndTile.ccb</string>
+								<string>TileNode/EndTile/EndTilePointingDown.ccb</string>
 							</dict>
 						</array>
 					</dict>
@@ -228,7 +228,7 @@
 								<key>type</key>
 								<string>CCBFile</string>
 								<key>value</key>
-								<string>TileNode/TileNode1.ccb</string>
+								<string>TileNode/Tile1/Tile1LowerLeftCorner.ccb</string>
 							</dict>
 						</array>
 					</dict>
@@ -290,7 +290,7 @@
 								<key>type</key>
 								<string>CCBFile</string>
 								<key>value</key>
-								<string>TileNode/TileNode2.ccb</string>
+								<string>TileNode/Tile2/Tile2UpperRightCorner.ccb</string>
 							</dict>
 						</array>
 					</dict>
@@ -352,7 +352,7 @@
 								<key>type</key>
 								<string>CCBFile</string>
 								<key>value</key>
-								<string>TileNode/PortalTile1.ccb</string>
+								<string>TileNode/Portals/PortalTile1.ccb</string>
 							</dict>
 						</array>
 					</dict>
@@ -414,7 +414,7 @@
 								<key>type</key>
 								<string>CCBFile</string>
 								<key>value</key>
-								<string>TileNode/PortalTile1.ccb</string>
+								<string>TileNode/Portals/PortalTile1.ccb</string>
 							</dict>
 						</array>
 					</dict>
@@ -476,7 +476,7 @@
 								<key>type</key>
 								<string>CCBFile</string>
 								<key>value</key>
-								<string>TileNode/TileNode1.ccb</string>
+								<string>TileNode/Tile1/Tile1Horizontal.ccb</string>
 							</dict>
 						</array>
 					</dict>
@@ -538,7 +538,7 @@
 								<key>type</key>
 								<string>CCBFile</string>
 								<key>value</key>
-								<string>TileNode/TileNode2.ccb</string>
+								<string>TileNode/Tile2/Tile2LowerLeftCorner.ccb</string>
 							</dict>
 						</array>
 					</dict>
@@ -600,7 +600,7 @@
 								<key>type</key>
 								<string>CCBFile</string>
 								<key>value</key>
-								<string>TileNode/PortalTile2.ccb</string>
+								<string>TileNode/Portals/PortalTile2.ccb</string>
 							</dict>
 						</array>
 					</dict>
@@ -662,7 +662,7 @@
 								<key>type</key>
 								<string>CCBFile</string>
 								<key>value</key>
-								<string>TileNode/PortalTile2.ccb</string>
+								<string>TileNode/Portals/PortalTile2.ccb</string>
 							</dict>
 						</array>
 					</dict>
@@ -724,7 +724,7 @@
 								<key>type</key>
 								<string>CCBFile</string>
 								<key>value</key>
-								<string>TileNode/TileNode1.ccb</string>
+								<string>TileNode/Tile1/Tile1LowerLeftCorner.ccb</string>
 							</dict>
 						</array>
 					</dict>
@@ -786,7 +786,7 @@
 								<key>type</key>
 								<string>CCBFile</string>
 								<key>value</key>
-								<string>TileNode/TileNode2.ccb</string>
+								<string>TileNode/Tile2/Tile2Horizontal.ccb</string>
 							</dict>
 						</array>
 					</dict>
@@ -848,7 +848,7 @@
 								<key>type</key>
 								<string>CCBFile</string>
 								<key>value</key>
-								<string>TileNode/PortalTile3.ccb</string>
+								<string>TileNode/Portals/PortalTile3.ccb</string>
 							</dict>
 						</array>
 					</dict>
@@ -910,11 +910,9 @@
 								<key>type</key>
 								<string>CCBFile</string>
 								<key>value</key>
-								<string>TileNode/PortalTile3.ccb</string>
+								<string>TileNode/Portals/PortalTile3.ccb</string>
 							</dict>
 						</array>
-						<key>selected</key>
-						<true/>
 					</dict>
 				</array>
 				<key>customClass</key>

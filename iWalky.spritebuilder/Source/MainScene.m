@@ -20,6 +20,7 @@
 #import "Star.h"
 #import "Barrel.h"
 #import "OverPopup.h"
+#import "WeaponSystem.h"
 
 
 static int MAPS_PER_LEVEL = 2;
@@ -38,6 +39,12 @@ static int DIAMOND_TIER = 1350;
 
 @implementation MainScene
 {
+    int shieldDurability;
+    int weaponSystemLevel;
+    
+    CCParticleSystem* _weaponTailParticle;
+    CCButton* _fireButton;
+    
     
     CCLabelTTF* _tutorialBannerLabel;
     
@@ -109,13 +116,13 @@ static int DIAMOND_TIER = 1350;
 //    int countDownTimerCheck;
     
     CCLabelTTF* _starCountsLabel;
-    CCLabelTTF* _barrelCountsLabel;
+//    CCLabelTTF* _barrelCountsLabel;
     
     int starCounts;
-    int barrelCounts;
+//    int barrelCounts;
     
     Star* _star;
-    Barrel* _barrel;
+//    Barrel* _barrel;
     
     BOOL won;
     
@@ -154,7 +161,7 @@ static int DIAMOND_TIER = 1350;
     CCNode* _tutorialLabel;
     
     CCSprite* _star_Icon;
-    CCSprite* _barrel_Icon;
+//    CCSprite* _barrel_Icon;
     
     int level2TutorialMoveForwardCounter;
     int level3TutorialMoveForwardCounter;
@@ -179,7 +186,7 @@ static int DIAMOND_TIER = 1350;
     {
         [self checkForPortal];
         [self checkForBlackHole];
-        [self checkForBarrel];
+//        [self checkForBarrel];
         [self checkForStar];
 
         
@@ -202,7 +209,12 @@ static int DIAMOND_TIER = 1350;
 
 - (void)didLoadFromCCB
 {
+    [[SaveManager sharedManager]saveWeaponsystemLevel:2];
+    shieldDurability = [[SaveManager sharedManager]getshieldDurability];
+    weaponSystemLevel = [[SaveManager sharedManager]getWeaponSystemLevel];
+    
     _shieldButton.visible = false;
+    _fireButton.visible = true;
     solarDisruption = false;
     [[SaveManager sharedManager]resetIsSucking];
 
@@ -212,7 +224,7 @@ static int DIAMOND_TIER = 1350;
     
     if ([[SaveManager sharedManager]getPlayerNormalMapLevel] == 0)
     {
-        [[SaveManager sharedManager]saveBarrelCount:10];
+//        [[SaveManager sharedManager]saveBarrelCount:10];
         [[SaveManager sharedManager]saveStarCount:99999];
 //        [[SaveManager sharedManager]saveShieldDurability:5];
     }
@@ -263,10 +275,10 @@ static int DIAMOND_TIER = 1350;
 
     
     starCounts = [[SaveManager sharedManager] getStarCount];
-    barrelCounts = [[SaveManager sharedManager] getBarrelCount];
+//    barrelCounts = [[SaveManager sharedManager] getBarrelCount];
     
    _starCountsLabel.string = [NSString stringWithFormat:@"%d", starCounts];
-   _barrelCountsLabel.string = [NSString stringWithFormat:@"%d", barrelCounts];
+//   _barrelCountsLabel.string = [NSString stringWithFormat:@"%d", barrelCounts];
     
     isAboutToDemote = false;
     
@@ -418,16 +430,21 @@ static int DIAMOND_TIER = 1350;
 
         if(playerMapLevel > 3)
         {
-            if (barrelCounts >0)
+            if ([[SaveManager sharedManager]getEngineLevel] > 0)
             {
                 _acceleration.visible = true;
 
             }
             
-            if ([[SaveManager sharedManager]getshieldDurability] > 0) {
+            if (shieldDurability > 0) {
                 _shieldButton.visible = true;
 
             }
+            
+//            if (weaponSystemLevel > 0) {
+//                _fireButton.visible = true;
+//
+//            }
         }
         
         _levelLabelText.visible = false;
@@ -558,7 +575,6 @@ static int DIAMOND_TIER = 1350;
         (instructionCounts == [instructionSet count] - 1) &&
         character.position.x == _endTile.position.x + 16 &&
         character.position.y == _endTile.position.y + 16
-
         )
     {
         CCLOG(@"Player At %f, %f", character.position.x, character.position.y);
@@ -569,6 +585,8 @@ static int DIAMOND_TIER = 1350;
         _menuLabel.visible = true;
 
         _acceleration.visible = false;
+        _shieldButton.visible = false;
+        _fireButton.visible = false;
         
             
             
@@ -618,7 +636,7 @@ static int DIAMOND_TIER = 1350;
             }
             
             [[SaveManager sharedManager] saveStarCount:starCounts];
-            [[SaveManager sharedManager] saveBarrelCount:barrelCounts];
+//            [[SaveManager sharedManager] saveBarrelCount:barrelCounts];
         
         
         if (playerMapLevel == MAX_NUMBER_OF_MAPS)
@@ -690,15 +708,20 @@ static int DIAMOND_TIER = 1350;
         {
             for (CCNode* node in tileNode.children )
             {
-                if ((CGRectIntersectsRect(character.boundingBox, node.boundingBox)))
+            if ((character.position.x == node.position.x + 16 && (((character.position.y == node.position.y + 16 || character.position.y == node.position.y + 32)))))
+                        {
+                            return;
+                        }
+            else if((character.position.y == node.position.y + 16 && ((character.position.x == node.position.x + 16 || character.position.x == node.position.x + 32 ))))
+
                 {
                     return;
                 }
             
             }
         }
-    }
     [self iLost];
+    }
 }
 
 
@@ -776,6 +799,7 @@ static int DIAMOND_TIER = 1350;
     
     if (playerMapLevel == 11)
     {
+        [self switchArrows];
         solarDisruption = true;
     }
     
@@ -825,13 +849,20 @@ static int DIAMOND_TIER = 1350;
     [_levelMapFrame addChild:character];
     
 
+
     
     CCNode* mapNode = ((CCNode*)[_levelMap.children objectAtIndex:0 ]);
     tileNode = ((CCNode*) [mapNode.children objectAtIndex:0]);
     
+    
     [self sortTileX];
     [self sortTileY];
     
+    for (CCNode* node in  tileNode.children)
+    {
+        CCLOG(@"%f %f", node.position.x, node.position.y);
+
+    }
     
     if (playerMapLevel <= 3)
     {
@@ -969,20 +1000,20 @@ static int DIAMOND_TIER = 1350;
     }
 }
 
--(void)checkForBarrel
-{
-    if (CGRectIntersectsRect(character.boundingBox, _barrel.boundingBox) && !_barrel.isChecked)
-    {
-        _barrel.isChecked = true;
-        barrelCounts++;
-        _barrelCountsLabel.string = [NSString stringWithFormat:@"%d", barrelCounts];
-        
-//        [[SaveManager sharedManager] saveBarrelCount:barrelCounts];
-        _barrel.visible = false;
-        [_barrel removeFromParent];
-        
-    }
-}
+//-(void)checkForBarrel
+//{
+//    if (CGRectIntersectsRect(character.boundingBox, _barrel.boundingBox) && !_barrel.isChecked)
+//    {
+//        _barrel.isChecked = true;
+//        barrelCounts++;
+//        _barrelCountsLabel.string = [NSString stringWithFormat:@"%d", barrelCounts];
+//        
+////        [[SaveManager sharedManager] saveBarrelCount:barrelCounts];
+//        _barrel.visible = false;
+//        [_barrel removeFromParent];
+//        
+//    }
+//}
 
 -(void)checkForPortal
 {
@@ -1037,18 +1068,21 @@ static int DIAMOND_TIER = 1350;
         if ([instructionSet[instructionCounts] isEqualToString:@"goForward"])
         {
             [character move];
+            CCLOG(@"%f %f", character.position.x, character.position.y);
 
         }
         
         if ([instructionSet[instructionCounts] isEqualToString:@"turnRight"])
         {
             [character rotateRight];
+            CCLOG(@"%f %f", character.position.x, character.position.y);
 
         }
         
         if ([instructionSet[instructionCounts] isEqualToString:@"turnLeft"])
         {
             [character rotateLeft];
+            CCLOG(@"%f %f", character.position.x, character.position.y);
 
         }
     }
@@ -1057,16 +1091,13 @@ static int DIAMOND_TIER = 1350;
 -(void)accelerate
 {
 
-    if (barrelCounts >= 1 && !character.accelerationModeEnabled && !(won) && !isAboutToDemote && goPressed)
+    if (starCounts >= 1 && !character.accelerationModeEnabled && !(won) && !isAboutToDemote && goPressed)
     {
 
-        barrelCounts--;
-        _barrelCountsLabel.string = [NSString stringWithFormat:@"%d", barrelCounts];
+        starCounts = starCounts - [[SaveManager sharedManager]getEngineLevel];
+        _starCountsLabel.string = [NSString stringWithFormat:@"%d", starCounts];
         
-        [[SaveManager sharedManager] saveBarrelCount:barrelCounts];
-        
-        
-        
+        [[SaveManager sharedManager] saveStarCount:starCounts];
         character.accelerationModeEnabled = true;
         [character speedUp];
         _acceleration.visible = false;
@@ -1075,7 +1106,6 @@ static int DIAMOND_TIER = 1350;
 
 -(void)sortTileX
 {
-    
     for (CCNode* node in tileNode.children )
     {
         BOOL rePlacedTile = false;
@@ -1085,6 +1115,7 @@ static int DIAMOND_TIER = 1350;
             if (abs((int)node.position.x - i) <= 10)
             {
                 node.position = ccp((float)i, node.position.y);
+
                 rePlacedTile = true;
             }
         }
@@ -1095,7 +1126,8 @@ static int DIAMOND_TIER = 1350;
 
 -(void)sortTileY
 {
-    
+    CCLOG(@"sorting y");
+
     for (CCNode* node in tileNode.children )
     {
         BOOL rePlacedTile = false;
@@ -1135,7 +1167,7 @@ static int DIAMOND_TIER = 1350;
     
 //    _tutorialLabel = [CCBReader load:@"InstructionLabel/RotateLeftIns"];
 //    [_tutorialLabel setAnchorPoint:ccp(0.5, 0.5)];
-    [_tutorialBannerLabel setString:[NSString stringWithFormat:@"tap\n[Rotate Left]\ncommand"]];
+    [_tutorialBannerLabel setString:[NSString stringWithFormat:@"tap\n[Rotate Left]\nbutton"]];
 //    _tutorialLabel.position = ccp(_turnLeftButton.position.x * 320, _turnLeftButton.position.y * 384 + 128);
 //    [self addChild:_tutorialLabel];
 }
@@ -1373,8 +1405,43 @@ static int DIAMOND_TIER = 1350;
 
 -(void)activateShield
 {
+    starCounts = starCounts - shieldDurability;
+    _starCountsLabel.string = [NSString stringWithFormat:@"%d", starCounts];
     [character activateShield];
     _shieldButton.visible = false;
 
+}
+
+-(void)fire
+{
+    WeaponSystem* _shipWeapon = (WeaponSystem*)[CCBReader load:@"Weapon01"];
+
+    [_levelMapFrame addChild:_shipWeapon];
+    
+    _shipWeapon.position = character.position;
+    CCLOG(@"Character at: %f %f\nWeapon at %f %f", character.position.x, character.position.y, _shipWeapon.position.x, _shipWeapon.position.y);
+    
+    _shipWeapon.rotation = character.characterSprite.rotation;
+//    _weaponTailParticle.angle = _shipWeapon.rotation - 180.f;
+
+    CGPoint postionDifference = ccp(cosf((360 - _shipWeapon.rotation) * 3.14 / 180)*32*weaponSystemLevel,
+                                    sinf((360 - _shipWeapon.rotation) * 3.14 / 180)*32*weaponSystemLevel);
+    
+    
+//    CGPoint postionDifference = ccp(0, 64);
+    CCActionMoveTo* move = [CCActionMoveTo actionWithDuration:(0.8 - 0.05f * weaponSystemLevel) / 4
+                                                     position:(ccpAdd(character.position, postionDifference))];
+    
+    [_shipWeapon runAction:move];
+
+}
+
+-(void)switchArrows
+{
+    _arrow1.positionType = CCPositionTypeNormalized;
+    _arrow3.positionType = CCPositionTypeNormalized;
+
+    _arrow1.position = ccp(0.82, 0.09);
+    _arrow3.position = ccp(0.18, 0.09);
 }
 @end

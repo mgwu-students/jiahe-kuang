@@ -233,15 +233,15 @@
 				<key>value</key>
 				<array>
 					<array>
-						<real>0.073552131652832031</real>
-						<real>0.068146690726280212</real>
-						<real>0.20686917006969452</real>
+						<real>0.33861434459686279</real>
+						<real>0.20438261330127716</real>
+						<real>0.48152229189872742</real>
 						<real>1</real>
 					</array>
 					<array>
-						<real>0.28616723418235779</real>
-						<real>0.17264437675476074</real>
-						<real>0.40530991554260254</real>
+						<real>0.47685426473617554</real>
+						<real>0.47685426473617554</real>
+						<real>0.47685426473617554</real>
 						<real>1</real>
 					</array>
 				</array>
@@ -283,7 +283,7 @@
 				<string>FloatVar</string>
 				<key>value</key>
 				<array>
-					<real>4</real>
+					<real>9</real>
 					<real>0.0</real>
 				</array>
 			</dict>

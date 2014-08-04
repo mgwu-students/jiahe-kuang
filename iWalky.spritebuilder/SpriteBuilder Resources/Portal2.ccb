@@ -136,7 +136,7 @@
 				<key>type</key>
 				<string>Integer</string>
 				<key>value</key>
-				<integer>40</integer>
+				<integer>80</integer>
 			</dict>
 			<dict>
 				<key>name</key>
@@ -167,7 +167,7 @@
 				<string>FloatVar</string>
 				<key>value</key>
 				<array>
-					<real>2</real>
+					<real>5</real>
 					<real>0.0</real>
 				</array>
 			</dict>
@@ -283,7 +283,7 @@
 				<string>FloatVar</string>
 				<key>value</key>
 				<array>
-					<real>2</real>
+					<real>4</real>
 					<real>0.0</real>
 				</array>
 			</dict>

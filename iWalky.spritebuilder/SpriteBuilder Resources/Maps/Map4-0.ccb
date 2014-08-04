@@ -104,7 +104,7 @@
 								<key>type</key>
 								<string>CCBFile</string>
 								<key>value</key>
-								<string>TileNode/StartTile.ccb</string>
+								<string>TileNode/StartTile/StartTilePointingUp.ccb</string>
 							</dict>
 						</array>
 					</dict>
@@ -166,7 +166,7 @@
 								<key>type</key>
 								<string>CCBFile</string>
 								<key>value</key>
-								<string>TileNode/EndTile.ccb</string>
+								<string>TileNode/EndTile/EndTilePointingDown.ccb</string>
 							</dict>
 						</array>
 					</dict>
@@ -241,8 +241,6 @@
 						</array>
 					</dict>
 				</array>
-				<key>selected</key>
-				<true/>
 			</dict>
 		</array>
 		<key>customClass</key>

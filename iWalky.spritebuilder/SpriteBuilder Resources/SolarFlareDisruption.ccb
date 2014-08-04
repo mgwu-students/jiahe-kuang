@@ -136,7 +136,7 @@
 				<key>type</key>
 				<string>Integer</string>
 				<key>value</key>
-				<integer>500</integer>
+				<integer>200</integer>
 			</dict>
 			<dict>
 				<key>name</key>
@@ -145,7 +145,7 @@
 				<string>FloatVar</string>
 				<key>value</key>
 				<array>
-					<real>2</real>
+					<real>0.5</real>
 					<real>0.0</real>
 				</array>
 			</dict>
@@ -156,7 +156,7 @@
 				<string>FloatVar</string>
 				<key>value</key>
 				<array>
-					<real>40</real>
+					<real>10</real>
 					<real>0.0</real>
 				</array>
 			</dict>
@@ -167,7 +167,7 @@
 				<string>FloatVar</string>
 				<key>value</key>
 				<array>
-					<real>80</real>
+					<real>20</real>
 					<real>0.0</real>
 				</array>
 			</dict>
@@ -212,16 +212,16 @@
 				<key>value</key>
 				<array>
 					<array>
-						<real>0.91410696506500244</real>
+						<real>0.93517917394638062</real>
 						<real>1</real>
-						<real>0.10652964562177658</real>
+						<real>0.9255785346031189</real>
 						<real>1</real>
 					</array>
 					<array>
-						<real>0.0</real>
-						<real>0.0</real>
-						<real>0.0</real>
-						<real>1</real>
+						<real>0.49286070466041565</real>
+						<real>0.47056710720062256</real>
+						<real>0.50448977947235107</real>
+						<real>0.5</real>
 					</array>
 				</array>
 			</dict>
@@ -233,15 +233,15 @@
 				<key>value</key>
 				<array>
 					<array>
+						<real>0.89737731218338013</real>
+						<real>0.92898380756378174</real>
 						<real>1</real>
-						<real>0.61023974418640137</real>
-						<real>0.2313113659620285</real>
 						<real>1</real>
 					</array>
 					<array>
-						<real>0.0</real>
-						<real>0.0</real>
-						<real>0.0</real>
+						<real>0.49536436796188354</real>
+						<real>0.49536436796188354</real>
+						<real>0.49536436796188354</real>
 						<real>1</real>
 					</array>
 				</array>
@@ -283,8 +283,8 @@
 				<string>FloatVar</string>
 				<key>value</key>
 				<array>
-					<real>160</real>
-					<real>80</real>
+					<real>20</real>
+					<real>10</real>
 				</array>
 			</dict>
 			<dict>
@@ -318,8 +318,6 @@
 				<string>ccbResources/ccbParticleFire.png</string>
 			</dict>
 		</array>
-		<key>selected</key>
-		<true/>
 	</dict>
 	<key>notes</key>
 	<array/>

@@ -19,9 +19,9 @@ static NSString* const kplayerHighScoreRecord = @"playerHighScoreRecord";
 static NSString* const kIsSucking = @"isSucking";
 
 static NSString* const kEnginLevel = @"enginLevel";
-static NSString* const kShieldLevel = @"engineLevel";
 static NSString* const kEnergyExtractorLevel = @"energyExtractorLevel";
 static NSString* const kShieldDurability = @"shieldDurability";
+static NSString* const kWeaponSystemLevel = @"weaponSystemLevel";
 
 
 //static NSString* const kisNotNewbie = @"isNotNewbie";
@@ -48,6 +48,17 @@ static NSString* const kShieldDurability = @"shieldDurability";
 //    [[NSUserDefaults standardUserDefaults] synchronize];
 //    
 //}
+
+
+-(void)saveWeaponsystemLevel: (int)weaponSystemLevel
+{
+    [MGWU setObject:[NSNumber numberWithInt:weaponSystemLevel] forKey:kWeaponSystemLevel];
+
+}
+-(int)getWeaponSystemLevel
+{
+    return [((NSNumber*)[MGWU objectForKey:kWeaponSystemLevel]) intValue];
+}
 
 -(void)saveShieldDurability: (int)shieldDurability
 {

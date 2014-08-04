@@ -27,6 +27,7 @@ static int DIAMOND_TIER = 1350;
     CCLabelTTF* _enginePowerLabel;
     CCLabelTTF* _speedLabel;
     CCLabelTTF* _shieldDurabilityLabel;
+    CCLabelTTF* _shieldLevelLabel;
     int engineLevel;
     int shieldDurability;
 }
@@ -42,6 +43,7 @@ static int DIAMOND_TIER = 1350;
     [self updateRankingLabel];
     [self updateEnginePower];
     [self updateSpeedLabel];
+    [self updateShieldLevel];
 
 }
 
@@ -92,10 +94,16 @@ static int DIAMOND_TIER = 1350;
     [_enginePowerLabel setString:[NSString stringWithFormat:@"+ %d", engineLevel]];
 
 }
+-(void)updateShieldLevel
+{
+    [_shieldLevelLabel setString:[NSString stringWithFormat:@"+ %d", shieldDurability]];
+    
+}
+
 
 -(void)updateShieldDurability
 {
-    [_shieldDurabilityLabel setString:[NSString stringWithFormat:@"%d", shieldDurability]];
+    [_shieldDurabilityLabel setString:[NSString stringWithFormat:@"%.2f", shieldDurability / 4.0f]];
 
 }
 

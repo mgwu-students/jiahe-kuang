@@ -10,12 +10,14 @@
 #import "SaveManager.h"
 
 @implementation WinPopup
+{
+    NSArray*     _playerRecord;
+
+}
 
 - (void)loadNextLevel {
-    
-    
-    
-    
+
+    int sum = 0;
     
     int tempPlayerLevel = [[SaveManager sharedManager]getPlayerNormalMapLevel];
     tempPlayerLevel++;
@@ -23,7 +25,24 @@
     
     if (tempPlayerLevel > [[SaveManager sharedManager] getPlayerHighestLevel])
     {
+        
         [[SaveManager sharedManager] savePlayerHighestLevel:tempPlayerLevel];
+        NSNumber* levelNumber = [NSNumber numberWithInt:tempPlayerLevel];
+        
+        _playerRecord = [[SaveManager sharedManager]getPlayerHighScoreRecord];
+        
+        for (NSNumber *num in  _playerRecord)
+        {
+            sum += [num intValue];
+        }
+        
+        NSNumber* scoreAtHighestLevel = [NSNumber numberWithInt:sum];
+        
+        NSDictionary *params = [[NSDictionary alloc] initWithObjectsAndKeys: scoreAtHighestLevel, @"highestScore", levelNumber, @"levelNumber", nil];
+        
+        [MGWU logEvent:@"player_Highest_Level" withParams: params];
+        
+        CCLOG(@"Player stopped at level %d with score %d", [levelNumber intValue], sum);
 
     }
     

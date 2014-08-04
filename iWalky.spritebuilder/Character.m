@@ -9,7 +9,7 @@
 #import "TailParticle.h"
 #import "Character.h"
 #import "SaveManager.h"
-
+#import "WeaponSystem.h"
 
 typedef enum{
     
@@ -28,12 +28,13 @@ typedef enum{
 {
 
 
-    CCSprite* _characterSprite;
     
     TailParticle* _tailParticle;
     
     CCParticleSystem* _shieldParticle;
     
+    
+//    WeaponSystem* _shipWeapon;
     
     BOOL _tailIsRemoved;
     
@@ -44,8 +45,8 @@ typedef enum{
     
     int engineLevel;
     int shieldDurability;
+//    int weaponSystemLevel;
     BOOL shieldActivated;
-//    BOOL shieldDepleted;
     int energyExtractorEfficiency;
     
     int shieldTimer;
@@ -55,11 +56,11 @@ typedef enum{
 -(void) didLoadFromCCB
 {
     shieldActivated = false;
-//    shieldDepleted = true;
     engineLevel = [[SaveManager sharedManager] getEngineLevel];
     shieldDurability = [[SaveManager sharedManager] getshieldDurability];
+//    weaponSystemLevel = [[SaveManager sharedManager] getWeaponSystemLevel];
     
-    shieldTimer = shieldDurability * 60;
+
     
     if (engineLevel == 0) {
         _animationDuration = .8f;
@@ -225,9 +226,9 @@ typedef enum{
 
 
 
-        _tailParticle.startSize = 12.5f;
-        _tailParticle.endSize  = 9.5f;
-        _tailParticle.life = .8f;
+        _tailParticle.startSize = 10.0f;
+        _tailParticle.endSize  = 7.0f;
+        _tailParticle.life = .6f;
         
 
         [self addChild:_tailParticle];
@@ -253,11 +254,15 @@ typedef enum{
 
 -(void)update:(CCTime)delta
 {
+
+//    CCLOG(@"%.2f %.2f", _shipWeapon.rotation, self.rotation);
+
+//    _shipWeapon.rotation = _characterSprite.rotation;
     _tailParticle.angle = _characterSprite.rotation - 180.f;
     
     if (shieldActivated)
     {
-        CCLOG(@"%d", shieldTimer);
+//        CCLOG(@"%d", shieldTimer);
         shieldTimer--;
         if (shieldTimer == 0)
         {
@@ -361,11 +366,11 @@ typedef enum{
 
 -(void)speedUp
 {
-    CCLOG(@"Before speed up speed at %.3f", _animationDuration);
+//    CCLOG(@"Before speed up speed at %.3f", _animationDuration);
 
     _animationDuration = _animationDuration / 2;
     
-    CCLOG(@"After speed up speed at %.3f", _animationDuration);
+//    CCLOG(@"After speed up speed at %.3f", _animationDuration);
 
 }
 
@@ -373,6 +378,7 @@ typedef enum{
 {
     if (shieldDurability > 0)
     {
+        shieldTimer = shieldDurability * 15;
         [_shieldParticle resetSystem];
         shieldActivated = true;
     }
@@ -388,6 +394,7 @@ typedef enum{
 //    [_tailParticle removeFromParent];
 //    _tailIsRemoved = true;
 //}
+
 
 
 

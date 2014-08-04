@@ -10,7 +10,7 @@
 		<false/>
 	</dict>
 	<key>UUID</key>
-	<integer>124</integer>
+	<integer>281</integer>
 	<key>centeredOrigin</key>
 	<false/>
 	<key>currentResolution</key>
@@ -41,14 +41,14 @@
 		<array>
 			<dict>
 				<key>UUID</key>
-				<integer>83</integer>
+				<integer>124</integer>
 				<key>baseClass</key>
 				<string>CCNode</string>
 				<key>children</key>
 				<array>
 					<dict>
 						<key>UUID</key>
-						<integer>84</integer>
+						<integer>125</integer>
 						<key>baseClass</key>
 						<string>CCBFile</string>
 						<key>children</key>
@@ -104,13 +104,13 @@
 								<key>type</key>
 								<string>CCBFile</string>
 								<key>value</key>
-								<string>TileNode/StartTile.ccb</string>
+								<string>TileNode/StartTile/StartTilePointingUp.ccb</string>
 							</dict>
 						</array>
 					</dict>
 					<dict>
 						<key>UUID</key>
-						<integer>86</integer>
+						<integer>144</integer>
 						<key>baseClass</key>
 						<string>CCBFile</string>
 						<key>children</key>
@@ -166,13 +166,13 @@
 								<key>type</key>
 								<string>CCBFile</string>
 								<key>value</key>
-								<string>TileNode/EndTile.ccb</string>
+								<string>TileNode/EndTile/EndTilePointingDown.ccb</string>
 							</dict>
 						</array>
 					</dict>
 					<dict>
 						<key>UUID</key>
-						<integer>88</integer>
+						<integer>163</integer>
 						<key>baseClass</key>
 						<string>CCBFile</string>
 						<key>children</key>
@@ -228,13 +228,13 @@
 								<key>type</key>
 								<string>CCBFile</string>
 								<key>value</key>
-								<string>TileNode/TileNode1.ccb</string>
+								<string>TileNode/Tile1/Tile1LowerLeftCorner.ccb</string>
 							</dict>
 						</array>
 					</dict>
 					<dict>
 						<key>UUID</key>
-						<integer>90</integer>
+						<integer>178</integer>
 						<key>baseClass</key>
 						<string>CCBFile</string>
 						<key>children</key>
@@ -290,13 +290,13 @@
 								<key>type</key>
 								<string>CCBFile</string>
 								<key>value</key>
-								<string>TileNode/TileNode2.ccb</string>
+								<string>TileNode/Tile2/Tile2UpperRightCorner.ccb</string>
 							</dict>
 						</array>
 					</dict>
 					<dict>
 						<key>UUID</key>
-						<integer>92</integer>
+						<integer>193</integer>
 						<key>baseClass</key>
 						<string>CCBFile</string>
 						<key>children</key>
@@ -352,13 +352,13 @@
 								<key>type</key>
 								<string>CCBFile</string>
 								<key>value</key>
-								<string>TileNode/PortalTile1.ccb</string>
+								<string>TileNode/Portals/PortalTile1.ccb</string>
 							</dict>
 						</array>
 					</dict>
 					<dict>
 						<key>UUID</key>
-						<integer>96</integer>
+						<integer>197</integer>
 						<key>baseClass</key>
 						<string>CCBFile</string>
 						<key>children</key>
@@ -414,13 +414,13 @@
 								<key>type</key>
 								<string>CCBFile</string>
 								<key>value</key>
-								<string>TileNode/PortalTile1.ccb</string>
+								<string>TileNode/Portals/PortalTile1.ccb</string>
 							</dict>
 						</array>
 					</dict>
 					<dict>
 						<key>UUID</key>
-						<integer>100</integer>
+						<integer>201</integer>
 						<key>baseClass</key>
 						<string>CCBFile</string>
 						<key>children</key>
@@ -476,13 +476,13 @@
 								<key>type</key>
 								<string>CCBFile</string>
 								<key>value</key>
-								<string>TileNode/TileNode1.ccb</string>
+								<string>TileNode/Tile1/Tile1Horizontal.ccb</string>
 							</dict>
 						</array>
 					</dict>
 					<dict>
 						<key>UUID</key>
-						<integer>102</integer>
+						<integer>218</integer>
 						<key>baseClass</key>
 						<string>CCBFile</string>
 						<key>children</key>
@@ -538,13 +538,13 @@
 								<key>type</key>
 								<string>CCBFile</string>
 								<key>value</key>
-								<string>TileNode/TileNode2.ccb</string>
+								<string>TileNode/Tile2/Tile2LowerLeftCorner.ccb</string>
 							</dict>
 						</array>
 					</dict>
 					<dict>
 						<key>UUID</key>
-						<integer>104</integer>
+						<integer>233</integer>
 						<key>baseClass</key>
 						<string>CCBFile</string>
 						<key>children</key>
@@ -600,13 +600,13 @@
 								<key>type</key>
 								<string>CCBFile</string>
 								<key>value</key>
-								<string>TileNode/PortalTile2.ccb</string>
+								<string>TileNode/Portals/PortalTile2.ccb</string>
 							</dict>
 						</array>
 					</dict>
 					<dict>
 						<key>UUID</key>
-						<integer>108</integer>
+						<integer>237</integer>
 						<key>baseClass</key>
 						<string>CCBFile</string>
 						<key>children</key>
@@ -662,13 +662,13 @@
 								<key>type</key>
 								<string>CCBFile</string>
 								<key>value</key>
-								<string>TileNode/PortalTile2.ccb</string>
+								<string>TileNode/Portals/PortalTile2.ccb</string>
 							</dict>
 						</array>
 					</dict>
 					<dict>
 						<key>UUID</key>
-						<integer>112</integer>
+						<integer>241</integer>
 						<key>baseClass</key>
 						<string>CCBFile</string>
 						<key>children</key>
@@ -698,8 +698,8 @@
 								<string>Position</string>
 								<key>value</key>
 								<array>
-									<real>190</real>
-									<real>98</real>
+									<real>192</real>
+									<real>96</real>
 									<integer>0</integer>
 									<integer>0</integer>
 									<integer>0</integer>
@@ -724,13 +724,13 @@
 								<key>type</key>
 								<string>CCBFile</string>
 								<key>value</key>
-								<string>TileNode/TileNode1.ccb</string>
+								<string>TileNode/Tile1/Tile1LowerLeftCorner.ccb</string>
 							</dict>
 						</array>
 					</dict>
 					<dict>
 						<key>UUID</key>
-						<integer>114</integer>
+						<integer>256</integer>
 						<key>baseClass</key>
 						<string>CCBFile</string>
 						<key>children</key>
@@ -786,13 +786,13 @@
 								<key>type</key>
 								<string>CCBFile</string>
 								<key>value</key>
-								<string>TileNode/TileNode2.ccb</string>
+								<string>TileNode/Tile2/Tile2Horizontal.ccb</string>
 							</dict>
 						</array>
 					</dict>
 					<dict>
 						<key>UUID</key>
-						<integer>116</integer>
+						<integer>273</integer>
 						<key>baseClass</key>
 						<string>CCBFile</string>
 						<key>children</key>
@@ -848,13 +848,13 @@
 								<key>type</key>
 								<string>CCBFile</string>
 								<key>value</key>
-								<string>TileNode/PortalTile3.ccb</string>
+								<string>TileNode/Portals/PortalTile3.ccb</string>
 							</dict>
 						</array>
 					</dict>
 					<dict>
 						<key>UUID</key>
-						<integer>120</integer>
+						<integer>277</integer>
 						<key>baseClass</key>
 						<string>CCBFile</string>
 						<key>children</key>
@@ -910,7 +910,7 @@
 								<key>type</key>
 								<string>CCBFile</string>
 								<key>value</key>
-								<string>TileNode/PortalTile3.ccb</string>
+								<string>TileNode/Portals/PortalTile3.ccb</string>
 							</dict>
 						</array>
 					</dict>
@@ -985,8 +985,6 @@
 						</array>
 					</dict>
 				</array>
-				<key>selected</key>
-				<true/>
 			</dict>
 		</array>
 		<key>customClass</key>

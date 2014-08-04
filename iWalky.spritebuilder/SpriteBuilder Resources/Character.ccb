@@ -158,8 +158,8 @@
 						<string>ScaleLock</string>
 						<key>value</key>
 						<array>
-							<real>1</real>
-							<real>1</real>
+							<real>0.5</real>
+							<real>0.5</real>
 							<false/>
 							<integer>0</integer>
 						</array>
@@ -172,7 +172,7 @@
 						<key>value</key>
 						<array>
 							<string></string>
-							<string>ArtWorks/rsz_ship2.png</string>
+							<string>ArtWorks/MoonBlade.png</string>
 						</array>
 					</dict>
 					<dict>
@@ -182,15 +182,13 @@
 						<string>Color3</string>
 						<key>value</key>
 						<array>
-							<real>1</real>
-							<real>1</real>
+							<real>0.94752591848373413</real>
+							<real>0.95927566289901733</real>
 							<real>1</real>
 							<real>1</real>
 						</array>
 					</dict>
 				</array>
-				<key>seqExpanded</key>
-				<true/>
 			</dict>
 			<dict>
 				<key>UUID</key>

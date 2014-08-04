@@ -110,6 +110,11 @@
 			<key>scaleFrom</key>
 			<integer>2</integer>
 		</dict>
+		<key>ArtWorks/rsz_startscreen.png</key>
+		<dict>
+			<key>scaleFrom</key>
+			<integer>4</integer>
+		</dict>
 		<key>Buttons/arrow.png</key>
 		<dict>
 			<key>scaleFrom</key>

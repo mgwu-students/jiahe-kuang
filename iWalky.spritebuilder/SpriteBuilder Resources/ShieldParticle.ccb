@@ -145,7 +145,7 @@
 				<string>FloatVar</string>
 				<key>value</key>
 				<array>
-					<real>2</real>
+					<real>1</real>
 					<real>0.0</real>
 				</array>
 			</dict>
@@ -307,8 +307,6 @@
 				<string>ccbResources/ccbParticleFire.png</string>
 			</dict>
 		</array>
-		<key>selected</key>
-		<true/>
 	</dict>
 	<key>notes</key>
 	<array/>

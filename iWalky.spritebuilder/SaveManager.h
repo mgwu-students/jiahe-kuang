@@ -64,6 +64,8 @@
 -(void)saveShieldDurability: (int)shieldDurability;
 -(int)getshieldDurability;
 
+-(void)saveWeaponsystemLevel: (int)weaponSystemLevel;
+-(int)getWeaponSystemLevel;
 
 
 +(id)sharedManager;
