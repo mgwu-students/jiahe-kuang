@@ -24,7 +24,7 @@
 
 
 static int MAPS_PER_LEVEL = 2;
-static int MAX_NUMBER_OF_MAPS = 11;
+static int MAX_NUMBER_OF_MAPS = 16;
 
 static int BRONZE_TIER = 1200;
 static int SILVER_TIER = 1290;
@@ -797,7 +797,7 @@ static int DIAMOND_TIER = 1350;
         if (playerHighScoreRecord == nil) {
             playerHighScoreRecord = [NSMutableArray array];
             
-            for (int i = 0; i <  MAX_NUMBER_OF_MAPS; i++)
+            for (int i = 0; i <  500; i++)
             {
                 [playerHighScoreRecord insertObject:[NSNumber numberWithFloat:0.0f] atIndex:i];
             }
@@ -1102,7 +1102,7 @@ static int DIAMOND_TIER = 1350;
 -(void)accelerate
 {
 
-    if (starCounts >= 1 && !character.accelerationModeEnabled && !(won) && !isAboutToDemote && goPressed)
+    if (starCounts >= [[SaveManager sharedManager]getEngineLevel] && !character.accelerationModeEnabled && !(won) && !isAboutToDemote && goPressed)
     {
 
         starCounts = starCounts - [[SaveManager sharedManager]getEngineLevel];
@@ -1121,14 +1121,15 @@ static int DIAMOND_TIER = 1350;
     {
         BOOL rePlacedTile = false;
 
-        for (int i = 32; i <= 320 && !rePlacedTile; i=i+32)
+        for (int i = 32; i < 320 && !rePlacedTile; i=i+32)
         {
-            if (abs((int)node.position.x - i) <= 10)
+            if (abs((int)node.position.x - i) < 10)
             {
                 node.position = ccp((float)i, node.position.y);
 
                 rePlacedTile = true;
             }
+
         }
         
     }
@@ -1143,13 +1144,15 @@ static int DIAMOND_TIER = 1350;
     {
         BOOL rePlacedTile = false;
         
-        for (int i = 32; i <= 384 && !rePlacedTile; i=i+32)
+        for (int i = 32; i < 384 && !rePlacedTile; i=i+32)
         {
-            if (abs((int)node.position.y - i) <= 10)
+            if (abs((int)node.position.y - i) < 10)
             {
                 node.position = ccp(node.position.x, (float)i);
                 rePlacedTile = true;
             }
+
+            
         }
         
     }
@@ -1453,10 +1456,14 @@ static int DIAMOND_TIER = 1350;
 
 -(void)activateShield
 {
-    starCounts = starCounts - shieldDurability;
-    _starCountsLabel.string = [NSString stringWithFormat:@"%d", starCounts];
-    [character activateShield];
-    _shieldButton.visible = false;
+    if ((starCounts >= [[SaveManager sharedManager]getshieldDurability] && !(won) && !isAboutToDemote && goPressed))
+    {
+        starCounts = starCounts - shieldDurability;
+        _starCountsLabel.string = [NSString stringWithFormat:@"%d", starCounts];
+        [character activateShield];
+        _shieldButton.visible = false;
+    }
+
 
 }
 
