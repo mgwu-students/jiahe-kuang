@@ -269,6 +269,13 @@
 			<key>tabletScale</key>
 			<integer>1</integer>
 		</dict>
+		<key>respaceui</key>
+		<dict>
+			<key>isSmartSpriteSheet</key>
+			<true/>
+		</dict>
+		<key>respaceui/space-ui-01.png</key>
+		<dict/>
 	</dict>
 	<key>versionStr</key>
 	<string>Version: 1.1.0

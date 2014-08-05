@@ -39,6 +39,11 @@ static int DIAMOND_TIER = 1350;
 
 @implementation MainScene
 {
+    
+    CCNode* _rotateLeftButtonAnimation;
+    CCNode* _moveForwardAnimation;
+    CCNode* _rotateRightButtonAnimation;
+    
     int shieldDurability;
     int weaponSystemLevel;
     
@@ -225,7 +230,7 @@ static int DIAMOND_TIER = 1350;
     if ([[SaveManager sharedManager]getPlayerNormalMapLevel] == 0)
     {
 //        [[SaveManager sharedManager]saveBarrelCount:10];
-        [[SaveManager sharedManager]saveStarCount:99999];
+        [[SaveManager sharedManager]saveStarCount:9999];
 //        [[SaveManager sharedManager]saveShieldDurability:5];
     }
     
@@ -451,8 +456,14 @@ static int DIAMOND_TIER = 1350;
         _levelDisplayLabel.visible = false;
         _startEngineButton.visible=false;
         _turnLeftButton.visible = false;
+        _rotateLeftButtonAnimation.visible= false;
+
         _turnRightButton.visible = false;
+        _rotateRightButtonAnimation.visible = false;
+
         _goUpButton.visible = false;
+        _moveForwardAnimation.visible = false;
+
         _clearButton.visible = false;
         _menuButton.visible = false;
         
@@ -1154,7 +1165,11 @@ static int DIAMOND_TIER = 1350;
     _startEngineButton.visible=false;
 //    _turnLeftButton.visible = false;
     _turnRightButton.visible = false;
+    _rotateRightButtonAnimation.visible = false;
+
     _goUpButton.visible = false;
+    _moveForwardAnimation.visible = false;
+
     _clearButton.visible = false;
     _clearLabel.visible = false;
     _menuButton.visible = false;
@@ -1176,12 +1191,18 @@ static int DIAMOND_TIER = 1350;
 {
 
     _turnLeftButton.visible = false;
+    _rotateLeftButtonAnimation.visible= false;
+
     _arrow1.visible = false;
     
     _hightLightParticleForMoveForward.visible = true;
     _hightLightParticleForLeft.visible = false;
     
     _goUpButton.visible = true;
+    _moveForwardAnimation.visible = true;
+
+    _moveForwardAnimation.visible = true;
+
     _arrow2.visible = true;
 
 //    _moveForwardLabel.visible = true;
@@ -1197,6 +1218,7 @@ static int DIAMOND_TIER = 1350;
 -(void)level1TutorialStep3
 {
     _goUpButton.visible = false;
+    _moveForwardAnimation.visible = false;
     _arrow2.visible = false;
     
     _hightLightParticleForMoveForward.visible = false;
@@ -1221,7 +1243,11 @@ static int DIAMOND_TIER = 1350;
     _startEngineButton.visible=false;
     //    _turnLeftButton.visible = false;
     _turnRightButton.visible = false;
+    _rotateRightButtonAnimation.visible = false;
+    
     _goUpButton.visible = false;
+    _moveForwardAnimation.visible = false;
+
     _clearButton.visible = false;
     _clearLabel.visible = false;
     _menuButton.visible = false;
@@ -1245,12 +1271,16 @@ static int DIAMOND_TIER = 1350;
 {
     
     _turnLeftButton.visible = false;
+    _rotateLeftButtonAnimation.visible= false;
+
     _arrow1.visible = false;
     
     _hightLightParticleForMoveForward.visible = true;
     _hightLightParticleForLeft.visible = false;
     
     _goUpButton.visible = true;
+    _moveForwardAnimation.visible = true;
+
     _arrow2.visible = true;
     
     //    _moveForwardLabel.visible = true;
@@ -1268,6 +1298,8 @@ static int DIAMOND_TIER = 1350;
 -(void)level2TutorialStep3
 {
     _goUpButton.visible = false;
+    _moveForwardAnimation.visible = false;
+
     _arrow2.visible = false;
     
     _hightLightParticleForMoveForward.visible = false;
@@ -1293,7 +1325,12 @@ static int DIAMOND_TIER = 1350;
     _startEngineButton.visible=false;
     //    _turnLeftButton.visible = false;
     _turnRightButton.visible = false;
+    _rotateRightButtonAnimation.visible = false;
+
+    
     _goUpButton.visible = false;
+    _moveForwardAnimation.visible = false;
+
     _clearButton.visible = false;
     _clearLabel.visible = false;
     _menuButton.visible = false;
@@ -1320,14 +1357,20 @@ static int DIAMOND_TIER = 1350;
         _hightLightParticleForRight.visible = false;
         _arrow3.visible = false;
         _turnRightButton.visible = false;
+        _rotateRightButtonAnimation.visible = false;
+
     }
     _turnLeftButton.visible = false;
+    _rotateLeftButtonAnimation.visible= false;
     _arrow1.visible = false;
     _hightLightParticleForLeft.visible = false;
     
 
     _hightLightParticleForMoveForward.visible = true;
     _goUpButton.visible = true;
+    _moveForwardAnimation.visible = true;
+
+    _moveForwardAnimation.visible = true;
     _arrow2.visible = true;
     
     //    _moveForwardLabel.visible = true;
@@ -1344,6 +1387,8 @@ static int DIAMOND_TIER = 1350;
 -(void)level3TutorialStep3
 {
     _goUpButton.visible = false;
+    _moveForwardAnimation.visible = false;
+
     _arrow2.visible = false;
     _hightLightParticleForMoveForward.visible = false;
 
@@ -1351,6 +1396,7 @@ static int DIAMOND_TIER = 1350;
     _hightLightParticleForRight.visible = true;
     _arrow3.visible = true;
     _turnRightButton.visible = true;
+    _rotateRightButtonAnimation.visible = true;
     
     
     //    _moveForwardLabel.visible = true;
@@ -1367,6 +1413,8 @@ static int DIAMOND_TIER = 1350;
 -(void)level3TutorialStep4
 {
     _goUpButton.visible = false;
+    _moveForwardAnimation.visible = false;
+
     _arrow2.visible = false;
     _hightLightParticleForMoveForward.visible = false;
     
