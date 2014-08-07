@@ -122,11 +122,19 @@
 						<string>Color3</string>
 						<key>value</key>
 						<array>
-							<real>0.61910992860794067</real>
-							<real>0.64864718914031982</real>
-							<real>0.67484116554260254</real>
-							<real>1</real>
+							<real>0.2482449859380722</real>
+							<real>0.57076632976531982</real>
+							<real>0.4358123242855072</real>
+							<real>0.80000001192092896</real>
 						</array>
+					</dict>
+					<dict>
+						<key>name</key>
+						<string>startOpacity</string>
+						<key>type</key>
+						<string>Float</string>
+						<key>value</key>
+						<real>0.80000001192092896</real>
 					</dict>
 					<dict>
 						<key>name</key>
@@ -135,11 +143,19 @@
 						<string>Color3</string>
 						<key>value</key>
 						<array>
+							<real>0.38506338000297546</real>
 							<real>0.75564056634902954</real>
-							<real>0.74334979057312012</real>
-							<real>0.68087118864059448</real>
-							<real>1</real>
+							<real>0.64450556039810181</real>
+							<real>0.80000001192092896</real>
 						</array>
+					</dict>
+					<dict>
+						<key>name</key>
+						<string>endOpacity</string>
+						<key>type</key>
+						<string>Float</string>
+						<key>value</key>
+						<real>0.80000001192092896</real>
 					</dict>
 					<dict>
 						<key>name</key>
@@ -186,7 +202,7 @@
 						<string>Position</string>
 						<key>value</key>
 						<array>
-							<real>0.80000001192092896</real>
+							<real>0.89999997615814209</real>
 							<real>0.5</real>
 							<integer>0</integer>
 							<integer>2</integer>
@@ -235,8 +251,8 @@
 						<string>Size</string>
 						<key>value</key>
 						<array>
-							<real>64</real>
-							<real>64</real>
+							<real>67</real>
+							<real>67</real>
 							<integer>0</integer>
 							<integer>0</integer>
 						</array>
@@ -248,8 +264,8 @@
 						<string>Size</string>
 						<key>value</key>
 						<array>
-							<real>0.0</real>
-							<real>0.0</real>
+							<real>67</real>
+							<real>67</real>
 							<integer>0</integer>
 							<integer>0</integer>
 						</array>
@@ -281,7 +297,20 @@
 						<key>value</key>
 						<array>
 							<string></string>
-							<string>ccbResources/ccbButtonNormal.png</string>
+							<string>ArtWorks/NewButton.png</string>
+						</array>
+					</dict>
+					<dict>
+						<key>name</key>
+						<string>backgroundColor|Normal</string>
+						<key>type</key>
+						<string>Color3</string>
+						<key>value</key>
+						<array>
+							<real>0.32715633511543274</real>
+							<real>0.63762640953063965</real>
+							<real>0.50662845373153687</real>
+							<real>1</real>
 						</array>
 					</dict>
 					<dict>
@@ -292,7 +321,20 @@
 						<key>value</key>
 						<array>
 							<string></string>
-							<string>ccbResources/ccbButtonHighlighted.png</string>
+							<string>ArtWorks/NewButton.png</string>
+						</array>
+					</dict>
+					<dict>
+						<key>name</key>
+						<string>backgroundColor|Highlighted</string>
+						<key>type</key>
+						<string>Color3</string>
+						<key>value</key>
+						<array>
+							<real>0.27826383709907532</real>
+							<real>0.68680304288864136</real>
+							<real>0.46444660425186157</real>
+							<real>1</real>
 						</array>
 					</dict>
 					<dict>
@@ -479,8 +521,6 @@
 						</array>
 					</dict>
 				</array>
-				<key>selected</key>
-				<true/>
 			</dict>
 			<dict>
 				<key>UUID</key>

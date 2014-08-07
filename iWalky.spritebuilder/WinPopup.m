@@ -12,50 +12,61 @@
 @implementation WinPopup
 {
     NSArray*     _playerRecord;
+    BOOL         _nextLevelPressed;
 
+}
+
+-(void)didLoadFromCCB
+{
+    _nextLevelPressed = false;
 }
 
 - (void)loadNextLevel {
 
     int sum = 0;
     
-    int tempPlayerLevel = [[SaveManager sharedManager]getPlayerNormalMapLevel];
-    tempPlayerLevel++;
-    
-    
-    if (tempPlayerLevel > [[SaveManager sharedManager] getPlayerHighestLevel])
+    if (!_nextLevelPressed)
     {
+        _nextLevelPressed = true;
+        int tempPlayerLevel = [[SaveManager sharedManager]getPlayerNormalMapLevel];
+        tempPlayerLevel++;
         
-        [[SaveManager sharedManager] savePlayerHighestLevel:tempPlayerLevel];
-        NSNumber* levelNumber = [NSNumber numberWithInt:tempPlayerLevel];
         
-        _playerRecord = [[SaveManager sharedManager]getPlayerHighScoreRecord];
-        
-        for (NSNumber *num in  _playerRecord)
+        if (tempPlayerLevel > [[SaveManager sharedManager] getPlayerHighestLevel])
         {
-            sum += [num intValue];
+            
+            [[SaveManager sharedManager] savePlayerHighestLevel:tempPlayerLevel];
+                    NSNumber* levelNumber = [NSNumber numberWithInt:tempPlayerLevel];
+            
+                    _playerRecord = [[SaveManager sharedManager]getPlayerHighScoreRecord];
+            
+                    for (NSNumber *num in  _playerRecord)
+                    {
+                        sum += [num intValue];
+                    }
+            
+                    NSNumber* scoreAtHighestLevel = [NSNumber numberWithInt:sum];
+            
+                    NSDictionary *params = [[NSDictionary alloc] initWithObjectsAndKeys: scoreAtHighestLevel, @"highestScore", levelNumber, @"levelNumber", nil];
+            
+                    [MGWU logEvent:@"player_Highest_Level" withParams: params];
+            
+                    CCLOG(@"Player stopped at level %d with score %d", [levelNumber intValue], sum);
+            
         }
         
-        NSNumber* scoreAtHighestLevel = [NSNumber numberWithInt:sum];
         
-        NSDictionary *params = [[NSDictionary alloc] initWithObjectsAndKeys: scoreAtHighestLevel, @"highestScore", levelNumber, @"levelNumber", nil];
+        [[SaveManager sharedManager] savePlayerNormalMapLevel:tempPlayerLevel];
+        [[SaveManager sharedManager] resetCurrentPlayingMap];
         
-        [MGWU logEvent:@"player_Highest_Level" withParams: params];
         
-        CCLOG(@"Player stopped at level %d with score %d", [levelNumber intValue], sum);
-
+        
+        CCScene *nextLevel = [CCBReader loadAsScene:@"MainScene"];
+        
+        CCTransition *transition = [CCTransition transitionFadeWithDuration:0.8f];
+        [[CCDirector sharedDirector] presentScene:nextLevel withTransition:transition];
     }
     
-    
-    [[SaveManager sharedManager] savePlayerNormalMapLevel:tempPlayerLevel];
-    [[SaveManager sharedManager] resetCurrentPlayingMap];
-    
-
-    
-    CCScene *nextLevel = [CCBReader loadAsScene:@"MainScene"];
-    
-    CCTransition *transition = [CCTransition transitionFadeWithDuration:0.8f];
-    [[CCDirector sharedDirector] presentScene:nextLevel withTransition:transition];
 }
 
 -(void)retry

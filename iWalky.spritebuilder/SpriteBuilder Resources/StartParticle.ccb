@@ -212,15 +212,15 @@
 				<key>value</key>
 				<array>
 					<array>
-						<real>0.97604316473007202</real>
-						<real>0.02232816256582737</real>
-						<real>0.22302649915218353</real>
+						<real>0.20726381242275238</real>
+						<real>0.61428618431091309</real>
+						<real>0.46384280920028687</real>
 						<real>1</real>
 					</array>
 					<array>
-						<real>0.33586707711219788</real>
-						<real>0.33388808369636536</real>
-						<real>0.34415522217750549</real>
+						<real>0.0</real>
+						<real>0.0</real>
+						<real>0.0</real>
 						<real>0.5</real>
 					</array>
 				</array>
@@ -233,9 +233,9 @@
 				<key>value</key>
 				<array>
 					<array>
-						<real>0.84120523929595947</real>
-						<real>0.23508909344673157</real>
-						<real>0.19717395305633545</real>
+						<real>0.11190188676118851</real>
+						<real>0.51711618900299072</real>
+						<real>0.4016384482383728</real>
 						<real>1</real>
 					</array>
 					<array>

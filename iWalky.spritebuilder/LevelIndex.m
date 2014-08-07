@@ -19,7 +19,8 @@
 
 -(void)didLoadFromCCB
 {
-    
+    int tempScore = 0;
+
     
     CCLOG(@"loaded into scrollView");
     positionCounter = 3200.f;
@@ -36,7 +37,19 @@
     {
         LevelRecord* levelRecord = (LevelRecord*) [CCBReader load:@"LevelRecord"];
         [levelRecord setLevelLabel:i+1];
-        int tempScore = [((NSNumber*)[playerBestScores objectAtIndex:i])integerValue];
+        if (playerHighestLevel > [playerBestScores count] && i == (playerHighestLevel - 1))
+        {
+            tempScore = 0;
+        }
+        
+        else
+        {
+            tempScore = [((NSNumber*)[playerBestScores objectAtIndex:i])integerValue];
+
+        }
+        
+        
+        
         [levelRecord setBestScoreLabel:tempScore];
         
         [_levelIndex insertObject:levelRecord atIndex:i];

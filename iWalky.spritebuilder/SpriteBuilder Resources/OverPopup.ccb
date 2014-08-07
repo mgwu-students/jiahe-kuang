@@ -122,11 +122,19 @@
 						<string>Color3</string>
 						<key>value</key>
 						<array>
-							<real>0.87000000476837158</real>
-							<real>0.30246713757514954</real>
-							<real>0.57317560911178589</real>
-							<real>1</real>
+							<real>0.22734940052032471</real>
+							<real>0.57835191488265991</real>
+							<real>0.47273358702659607</real>
+							<real>0.5</real>
 						</array>
+					</dict>
+					<dict>
+						<key>name</key>
+						<string>startOpacity</string>
+						<key>type</key>
+						<string>Float</string>
+						<key>value</key>
+						<real>0.5</real>
 					</dict>
 					<dict>
 						<key>name</key>
@@ -135,11 +143,19 @@
 						<string>Color3</string>
 						<key>value</key>
 						<array>
-							<real>0.61050021648406982</real>
-							<real>0.35613030195236206</real>
-							<real>0.80000001192092896</real>
-							<real>1</real>
+							<real>0.33253017067909241</real>
+							<real>0.71798819303512573</real>
+							<real>0.61276674270629883</real>
+							<real>0.5</real>
 						</array>
+					</dict>
+					<dict>
+						<key>name</key>
+						<string>endOpacity</string>
+						<key>type</key>
+						<string>Float</string>
+						<key>value</key>
+						<real>0.5</real>
 					</dict>
 					<dict>
 						<key>name</key>
@@ -263,8 +279,8 @@ Out of Stars</string>
 						<string>Color3</string>
 						<key>value</key>
 						<array>
-							<real>0.46065884828567505</real>
-							<real>0.70913606882095337</real>
+							<real>0.91760259866714478</real>
+							<real>0.93760472536087036</real>
 							<real>1</real>
 							<real>1</real>
 						</array>
@@ -374,8 +390,6 @@ Out of Stars</string>
 						</array>
 					</dict>
 				</array>
-				<key>selected</key>
-				<true/>
 			</dict>
 			<dict>
 				<key>UUID</key>
@@ -434,8 +448,8 @@ Out of Stars</string>
 						<string>ScaleLock</string>
 						<key>value</key>
 						<array>
-							<real>1</real>
-							<real>1</real>
+							<real>0.80000001192092896</real>
+							<real>0.80000001192092896</real>
 							<false/>
 							<integer>0</integer>
 						</array>
@@ -458,8 +472,8 @@ Out of Stars</string>
 						<string>Size</string>
 						<key>value</key>
 						<array>
-							<real>40</real>
-							<real>40</real>
+							<real>67</real>
+							<real>67</real>
 							<integer>0</integer>
 							<integer>0</integer>
 						</array>
@@ -471,8 +485,8 @@ Out of Stars</string>
 						<string>Size</string>
 						<key>value</key>
 						<array>
-							<real>0.0</real>
-							<real>0.0</real>
+							<real>67</real>
+							<real>67</real>
 							<integer>0</integer>
 							<integer>0</integer>
 						</array>
@@ -492,7 +506,7 @@ Out of Stars</string>
 						<string>String</string>
 						<key>value</key>
 						<array>
-							<string>Continue</string>
+							<string>Reload</string>
 							<false/>
 						</array>
 					</dict>
@@ -504,7 +518,7 @@ Out of Stars</string>
 						<key>value</key>
 						<array>
 							<string></string>
-							<string>ccbResources/ccbButtonNormal.png</string>
+							<string>ArtWorks/NewButton.png</string>
 						</array>
 					</dict>
 					<dict>
@@ -515,7 +529,7 @@ Out of Stars</string>
 						<key>value</key>
 						<array>
 							<string></string>
-							<string>ccbResources/ccbButtonHighlighted.png</string>
+							<string>ArtWorks/NewButton.png</string>
 						</array>
 					</dict>
 					<dict>

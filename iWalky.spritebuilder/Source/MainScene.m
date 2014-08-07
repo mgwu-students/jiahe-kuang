@@ -599,7 +599,11 @@ static int DIAMOND_TIER = 1350;
         _shieldButton.visible = false;
         _fireButton.visible = false;
         
-            
+        
+        if ([playerHighScoreRecord count] < playerMapLevel)
+        {
+            [playerHighScoreRecord insertObject:[NSNumber numberWithFloat:0.0f] atIndex:playerMapLevel-1];
+        }
             
             NSNumber* previousHighScoreForCurrentLevel = [playerHighScoreRecord objectAtIndex:playerMapLevel-1];
 
@@ -628,30 +632,38 @@ static int DIAMOND_TIER = 1350;
             
             [self addChild:popup];
         
+        if(playerMapLevel < MAX_NUMBER_OF_MAPS)
+        {
             _finishButton.visible = false;
-        
+            
             [_LabelIndicator setString:@"Your Score:"];
-
-        
+            
+            
             [_currentScoreLabel setString:[NSString stringWithFormat:@"%d", (int)(100.f - mTimeInSec)]];
-        
+            
             if ((100.f - mTimeInSec) > [previousHighScoreForCurrentLevel floatValue])
             {
-//                [_newHighScoreLabel setString:[NSString stringWithFormat:@"Lvl%d High Score: %d", playerMapLevel, (int)(100.f - mTimeInSec)]];
+                //                [_newHighScoreLabel setString:[NSString stringWithFormat:@"Lvl%d High Score: %d", playerMapLevel, (int)(100.f - mTimeInSec)]];
                 [_highScoreLabel setString:[NSString stringWithFormat:@"Yay!!New Best Score: %d", (int)(100.f - mTimeInSec)]];
-
+                
             }
             else{
                 [_highScoreLabel setString:[NSString stringWithFormat:@"Best Score: %d", (int)[previousHighScoreForCurrentLevel floatValue]]];
-
+                
             }
             
             [[SaveManager sharedManager] saveStarCount:starCounts];
-//            [[SaveManager sharedManager] saveBarrelCount:barrelCounts];
+            //            [[SaveManager sharedManager] saveBarrelCount:barrelCounts];
+        
+        }
+
         
         
         if (playerMapLevel == MAX_NUMBER_OF_MAPS)
         {
+            
+            [MGWU logEvent:@"GameComplete" withParams:nil];
+
             
             [_LabelIndicator setString:@"Pilot Ranking:"];
             NSInteger sum = 0;
@@ -700,7 +712,7 @@ static int DIAMOND_TIER = 1350;
             _currentScoreLabel.visible = false;
             _finishButton.visible = true;
             
-            CCLOG(@"You have passed the game");
+            CCLOG(@"You complete the game");
         }
     
     }
@@ -797,7 +809,7 @@ static int DIAMOND_TIER = 1350;
         if (playerHighScoreRecord == nil) {
             playerHighScoreRecord = [NSMutableArray array];
             
-            for (int i = 0; i <  500; i++)
+            for (int i = 0; i <  MAX_NUMBER_OF_MAPS; i++)
             {
                 [playerHighScoreRecord insertObject:[NSNumber numberWithFloat:0.0f] atIndex:i];
             }
@@ -868,12 +880,7 @@ static int DIAMOND_TIER = 1350;
     
     [self sortTileX];
     [self sortTileY];
-    
-    for (CCNode* node in  tileNode.children)
-    {
-        CCLOG(@"%f %f", node.position.x, node.position.y);
 
-    }
     
     if (playerMapLevel <= 3)
     {
@@ -1496,7 +1503,7 @@ static int DIAMOND_TIER = 1350;
     _arrow1.positionType = CCPositionTypeNormalized;
     _arrow3.positionType = CCPositionTypeNormalized;
 
-    _arrow1.position = ccp(0.82, 0.09);
-    _arrow3.position = ccp(0.18, 0.09);
+    _arrow1.position = ccp(0.85, 0.09);
+    _arrow3.position = ccp(0.15, 0.09);
 }
 @end
