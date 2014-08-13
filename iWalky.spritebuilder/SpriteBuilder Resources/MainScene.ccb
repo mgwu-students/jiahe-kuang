@@ -14,7 +14,7 @@
 	<key>centeredOrigin</key>
 	<false/>
 	<key>currentResolution</key>
-	<integer>2</integer>
+	<integer>0</integer>
 	<key>currentSequenceId</key>
 	<integer>0</integer>
 	<key>docDimensionsType</key>
@@ -67,7 +67,7 @@
 									<key>value</key>
 									<array>
 										<real>1</real>
-										<real>1.1499999761581421</real>
+										<real>1.1000000238418579</real>
 									</array>
 								</dict>
 							</array>
@@ -138,7 +138,7 @@
 						<key>value</key>
 						<array>
 							<real>1</real>
-							<real>1.1499999761581421</real>
+							<real>1.1000000238418579</real>
 							<false/>
 							<integer>0</integer>
 						</array>
@@ -151,7 +151,7 @@
 						<key>value</key>
 						<array>
 							<string></string>
-							<string>ArtWorks/Space1.png</string>
+							<string>respaceui/space-ui-01.png</string>
 						</array>
 					</dict>
 					<dict>
@@ -168,6 +168,8 @@
 						</array>
 					</dict>
 				</array>
+				<key>selected</key>
+				<true/>
 				<key>seqExpanded</key>
 				<true/>
 			</dict>
@@ -242,7 +244,7 @@
 						<key>value</key>
 						<array>
 							<real>1</real>
-							<real>0.92505413293838501</real>
+							<real>1</real>
 							<false/>
 							<integer>0</integer>
 						</array>
@@ -281,7 +283,7 @@
 						<string>Position</string>
 						<key>value</key>
 						<array>
-							<real>0.87999999523162842</real>
+							<real>0.92000001668930054</real>
 							<real>0.0</real>
 							<integer>1</integer>
 							<integer>2</integer>
@@ -306,8 +308,8 @@
 						<string>ScaleLock</string>
 						<key>value</key>
 						<array>
-							<real>0.80000001192092896</real>
-							<real>0.80000001192092896</real>
+							<real>0.69999998807907104</real>
+							<real>0.69999998807907104</real>
 							<false/>
 							<integer>0</integer>
 						</array>
@@ -607,7 +609,7 @@
 						<string>Position</string>
 						<key>value</key>
 						<array>
-							<real>0.11999999731779099</real>
+							<real>0.079999998211860657</real>
 							<real>0.0</real>
 							<integer>1</integer>
 							<integer>2</integer>
@@ -632,8 +634,8 @@
 						<string>ScaleLock</string>
 						<key>value</key>
 						<array>
-							<real>0.80000001192092896</real>
-							<real>0.80000001192092896</real>
+							<real>0.69999998807907104</real>
+							<real>0.69999998807907104</real>
 							<false/>
 							<integer>0</integer>
 						</array>
@@ -967,7 +969,7 @@
 								<key>value</key>
 								<array>
 									<real>0.5</real>
-									<real>0.23000000417232513</real>
+									<real>0.22499999403953552</real>
 									<integer>0</integer>
 									<integer>2</integer>
 									<integer>2</integer>
@@ -1015,8 +1017,8 @@
 								<string>Size</string>
 								<key>value</key>
 								<array>
-									<real>128</real>
-									<real>40</real>
+									<real>150</real>
+									<real>30</real>
 									<integer>0</integer>
 									<integer>0</integer>
 								</array>
@@ -1049,7 +1051,7 @@
 								<string>String</string>
 								<key>value</key>
 								<array>
-									<string>Start Engine</string>
+									<string></string>
 									<false/>
 								</array>
 							</dict>
@@ -1061,16 +1063,8 @@
 								<key>value</key>
 								<array>
 									<string></string>
-									<string>ArtWorks/GreenButton.png</string>
+									<string>ArtWorks/button-5.png</string>
 								</array>
-							</dict>
-							<dict>
-								<key>name</key>
-								<string>backgroundOpacity|Normal</string>
-								<key>type</key>
-								<string>Float</string>
-								<key>value</key>
-								<real>0.60000002384185791</real>
 							</dict>
 							<dict>
 								<key>name</key>
@@ -1079,9 +1073,9 @@
 								<string>Color3</string>
 								<key>value</key>
 								<array>
-									<real>0.44316437840461731</real>
-									<real>0.90918374061584473</real>
-									<real>0.85993951559066772</real>
+									<real>0.94764137268066406</real>
+									<real>0.94437843561172485</real>
+									<real>1</real>
 									<real>1</real>
 								</array>
 							</dict>
@@ -1106,7 +1100,7 @@
 								<key>value</key>
 								<array>
 									<string></string>
-									<string>ArtWorks/GreenButton.png</string>
+									<string>ArtWorks/button-5.png</string>
 								</array>
 							</dict>
 							<dict>
@@ -1115,7 +1109,7 @@
 								<key>type</key>
 								<string>Float</string>
 								<key>value</key>
-								<real>0.89999997615814209</real>
+								<real>0.5</real>
 							</dict>
 							<dict>
 								<key>name</key>
@@ -1124,11 +1118,19 @@
 								<string>Color3</string>
 								<key>value</key>
 								<array>
-									<real>0.31746330857276917</real>
-									<real>0.72338563203811646</real>
-									<real>0.61103326082229614</real>
+									<real>0.95318812131881714</real>
+									<real>0.98560595512390137</real>
+									<real>1</real>
 									<real>1</real>
 								</array>
+							</dict>
+							<dict>
+								<key>name</key>
+								<string>labelOpacity|Highlighted</string>
+								<key>type</key>
+								<string>Float</string>
+								<key>value</key>
+								<real>0.5</real>
 							</dict>
 							<dict>
 								<key>name</key>
@@ -4045,8 +4047,8 @@
 						<string>ScaleLock</string>
 						<key>value</key>
 						<array>
-							<real>0.85000002384185791</real>
-							<real>0.85000002384185791</real>
+							<real>1</real>
+							<real>1</real>
 							<false/>
 							<integer>0</integer>
 						</array>
@@ -4337,8 +4339,8 @@
 								<string>ScaleLock</string>
 								<key>value</key>
 								<array>
-									<real>0.69999998807907104</real>
-									<real>0.69999998807907104</real>
+									<real>0.20000000298023224</real>
+									<real>0.20000000298023224</real>
 									<false/>
 									<integer>0</integer>
 								</array>
@@ -4351,7 +4353,7 @@
 								<key>value</key>
 								<array>
 									<string></string>
-									<string>ArtWorks/newStar.png</string>
+									<string>ArtWorks/Star.png</string>
 								</array>
 							</dict>
 							<dict>

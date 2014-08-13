@@ -79,7 +79,7 @@
 								<key>value</key>
 								<array>
 									<real>64</real>
-									<real>32</real>
+									<real>64</real>
 									<integer>0</integer>
 									<integer>0</integer>
 									<integer>0</integer>
@@ -107,6 +107,8 @@
 								<string>TileNode/StartTile/StartTilePointingUp.ccb</string>
 							</dict>
 						</array>
+						<key>selected</key>
+						<true/>
 					</dict>
 					<dict>
 						<key>UUID</key>
@@ -265,7 +267,7 @@
 								<key>value</key>
 								<array>
 									<real>64</real>
-									<real>64</real>
+									<real>96</real>
 									<integer>0</integer>
 									<integer>0</integer>
 									<integer>0</integer>
@@ -327,7 +329,7 @@
 								<key>value</key>
 								<array>
 									<real>64</real>
-									<real>96</real>
+									<real>128</real>
 									<integer>0</integer>
 									<integer>0</integer>
 									<integer>0</integer>

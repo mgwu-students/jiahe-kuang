@@ -80,7 +80,7 @@ static int STAR_COST_FOR_SHIELD_UPGRADE = 80;
         int successRate = 55 - 5 * _currentEngineLevel;
         int tempRamdonNumber = (arc4random()%100);
         CCLOG(@"Your lucky number %d for engine level: %d", tempRamdonNumber, _currentEngineLevel+1);
-        if ( tempRamdonNumber < successRate + 100)
+        if ( tempRamdonNumber < successRate)
         {
             _currentEngineLevel++;
             [[SaveManager sharedManager] saveEngineLevel:_currentEngineLevel];
@@ -118,7 +118,7 @@ static int STAR_COST_FOR_SHIELD_UPGRADE = 80;
 {
     if (_currentStarCount > (STAR_COST_FOR_SHIELD_UPGRADE * (_currentShieldLevel + 2)) &&  _currentShieldLevel < 11 && !isResearching)
     {
-        _downgradeParticle.position = ccp(0.5, 0.5);
+        _downgradeParticle.position = ccp(0.5, 0.35);
         [_downgradeParticle resetSystem];
         
         isResearching = true;
@@ -129,7 +129,7 @@ static int STAR_COST_FOR_SHIELD_UPGRADE = 80;
         int successRate = 55 - 5 * _currentShieldLevel;
         int tempRamdonNumber = (arc4random()%100);
         CCLOG(@"Your lucky number %d for shield level: %d", tempRamdonNumber, _currentShieldLevel+1);
-        if ( tempRamdonNumber < successRate + 100)
+        if ( tempRamdonNumber < successRate)
         {
             _currentShieldLevel++;
             [[SaveManager sharedManager] saveShieldDurability: _currentShieldLevel];
@@ -187,7 +187,7 @@ static int STAR_COST_FOR_SHIELD_UPGRADE = 80;
     if (_currentShieldLevel > 0 && !isResearching)
     {
         isResearching = true;
-        _downgradeParticle.position = ccp(0.5, 0.5);
+        _downgradeParticle.position = ccp(0.5, 0.35);
         [_downgradeParticle resetSystem];
 
         
@@ -207,6 +207,15 @@ static int STAR_COST_FOR_SHIELD_UPGRADE = 80;
     CCTransition *transition = [CCTransition transitionFadeWithDuration:0.8f];
     [[CCDirector sharedDirector] presentScene:sceneAboutToEnter withTransition:transition];
     
+}
+
+-(void)GenerateStars
+{
+    [[SaveManager sharedManager]saveStarCount:99999];
+    
+    _currentStarCount = [[SaveManager sharedManager] getStarCount];
+    [_currentStartCountLabel setString:[NSString stringWithFormat:@"%d", _currentStarCount]];
+
 }
 
 @end

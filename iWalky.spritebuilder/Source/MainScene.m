@@ -23,8 +23,8 @@
 #import "WeaponSystem.h"
 
 
-static int MAPS_PER_LEVEL = 2;
-static int MAX_NUMBER_OF_MAPS = 16;
+static int MAPS_PER_LEVEL = 1;
+static int MAX_NUMBER_OF_MAPS = 30;
 
 static int BRONZE_TIER = 1200;
 static int SILVER_TIER = 1290;
@@ -39,6 +39,10 @@ static int DIAMOND_TIER = 1350;
 
 @implementation MainScene
 {
+    
+    
+    BOOL shownGameTip;
+    CCNode* _instructionArrow;
     
     CCNode* _rotateLeftButtonAnimation;
     CCNode* _moveForwardAnimation;
@@ -57,6 +61,10 @@ static int DIAMOND_TIER = 1350;
     
     CCNode* _blackHole1;
     CCNode* _blackHole2;
+    CCNode* _blackHole3;
+    CCNode* _blackHole4;
+    CCNode* _blackHole5;
+
     
     CCLabelTTF* _levelLabelText;
     CCLabelTTF* _levelDisplayLabel;
@@ -85,6 +93,9 @@ static int DIAMOND_TIER = 1350;
     
     CCNode* _portal4Start;
     CCNode* _portal4End;
+    
+    CCNode* _portal5Start;
+    CCNode* _portal5End;
 
 
     
@@ -224,6 +235,8 @@ static int DIAMOND_TIER = 1350;
     [[SaveManager sharedManager]resetIsSucking];
 
     mTimeInSec = 0.0f;
+    
+    shownGameTip = false;
     
     [self schedule:@selector(tick:) interval:(1.f)];
     
@@ -418,14 +431,17 @@ static int DIAMOND_TIER = 1350;
 
 -(void)go
 {
-    if (playerMapLevel > 3 && playerMapLevel <= 5 && ([instructionSet count] == 0))
+    _instructionArrow.visible = false;
+
+    if (playerMapLevel > 3 && playerMapLevel <= 5 && ([instructionSet count] == 0) && !shownGameTip)
     {
+        
         CCNode* _plottingLabel = [CCBReader load:@"InstructionLabel/PlottingLabel" owner:self];
         _plottingLabel.position = ccp([[CCDirector sharedDirector] viewSize].width * 0.5, [[CCDirector sharedDirector] viewSize].height * .8);
-        [_tutorialBannerLabel setString:[NSString stringWithFormat:@"Tip:\nPlot a complete course\nBefore pressing Start Engine"]];
-        _tutorialBannerLabel.scaleX = 0.75;
-        
+        [_tutorialBannerLabel setString:[NSString stringWithFormat:@"Tip:\nPlot a complete course"]];
+        _tutorialBannerLabel.scaleX = .65;
         [self addChild:_plottingLabel];
+        shownGameTip = true;
     }
 
     if (!goPressed && [instructionSet count] != 0) {
@@ -452,8 +468,8 @@ static int DIAMOND_TIER = 1350;
 //            }
         }
         
-        _levelLabelText.visible = false;
-        _levelDisplayLabel.visible = false;
+//        _levelLabelText.visible = false;
+//        _levelDisplayLabel.visible = false;
         _startEngineButton.visible=false;
         _turnLeftButton.visible = false;
         _rotateLeftButtonAnimation.visible= false;
@@ -480,8 +496,10 @@ static int DIAMOND_TIER = 1350;
         
         if (playerMapLevel <= 3)
         {
-            [_tutorialBannerLabel setString:[NSString stringWithFormat:@"Tip:\nPlot a complete course\nBefore pressing Start Engine"]];
-            _tutorialBannerLabel.scaleX = 0.75;
+            
+            
+            [_tutorialBannerLabel setString:[NSString stringWithFormat:@"Tip:\nPlot a complete course"]];
+            _tutorialBannerLabel.scaleX = .65;
 
         }
         
@@ -820,7 +838,10 @@ static int DIAMOND_TIER = 1350;
 
     }
     
-    if (playerMapLevel == 11)
+    if (playerMapLevel == 11 ||
+        playerMapLevel == 19 ||
+        playerMapLevel == 20 ||
+        playerMapLevel == 30)
     {
         [self switchArrows];
         solarDisruption = true;
@@ -1008,7 +1029,7 @@ static int DIAMOND_TIER = 1350;
     if (CGRectIntersectsRect(character.boundingBox, _star.boundingBox) && !_star.isChecked)
     {
         _star.isChecked = true;
-        starCounts++;
+        starCounts = starCounts * playerMapLevel;
         _starCountsLabel.string = [NSString stringWithFormat:@"%d", starCounts];
         
 //        [[SaveManager sharedManager] saveStarCount:starCounts];
@@ -1035,7 +1056,9 @@ static int DIAMOND_TIER = 1350;
 
 -(void)checkForPortal
 {
-    if (CGRectIntersectsRect(character.boundingBox, _portal1Start.boundingBox))
+    if (CGRectIntersectsRect(character.boundingBox, _portal1Start.boundingBox)
+        && _portal1Start.position.x + 16 == character.position.x
+        && _portal1Start.position.y + 16 == character.position.y)
     {
         
 //        [character stopTailParticleWhenEnterPortal];
@@ -1043,17 +1066,43 @@ static int DIAMOND_TIER = 1350;
         character.position = ccp(_portal1End.position.x+16, _portal1End.position.y+16);
     }
     
-    if (CGRectIntersectsRect(character.boundingBox, _portal2Start.boundingBox))
+    if (CGRectIntersectsRect(character.boundingBox, _portal2Start.boundingBox)
+        && _portal2Start.position.x + 16 == character.position.x
+        && _portal2Start.position.y + 16 == character.position.y
+        )
     {
 //        [character stopTailParticleWhenEnterPortal];
 
         character.position = ccp(_portal2End.position.x+16, _portal2End.position.y+16);
     }
     
-    if (CGRectIntersectsRect(character.boundingBox, _portal3Start.boundingBox))
+    if (CGRectIntersectsRect(character.boundingBox, _portal3Start.boundingBox)
+        && _portal3Start.position.x + 16 == character.position.x
+        && _portal3Start.position.y + 16 == character.position.y
+        )
     {
 //        [character stopTailParticleWhenEnterPortal];
         character.position = ccp(_portal3End.position.x+16, _portal3End.position.y+16);
+        
+    }
+    
+    if (CGRectIntersectsRect(character.boundingBox, _portal4Start.boundingBox)
+        && _portal4Start.position.x + 16 == character.position.x
+        && _portal4Start.position.y + 16 == character.position.y
+        )
+    {
+        //        [character stopTailParticleWhenEnterPortal];
+        character.position = ccp(_portal4End.position.x+16, _portal4End.position.y+16);
+        
+    }
+    
+    if (CGRectIntersectsRect(character.boundingBox, _portal5Start.boundingBox)
+        && _portal5Start.position.x + 16 == character.position.x
+        && _portal5Start.position.y + 16 == character.position.y
+        )
+    {
+        //        [character stopTailParticleWhenEnterPortal];
+        character.position = ccp(_portal5End.position.x+16, _portal5End.position.y+16);
         
     }
 //
@@ -1066,7 +1115,12 @@ static int DIAMOND_TIER = 1350;
 
 -(void)checkForBlackHole
 {
-    if (CGRectIntersectsRect(character.boundingBox, _blackHole1.boundingBox) || CGRectIntersectsRect(character.boundingBox, _blackHole2.boundingBox)) {
+    if (CGRectIntersectsRect(character.boundingBox, _blackHole1.boundingBox) ||
+        CGRectIntersectsRect(character.boundingBox, _blackHole2.boundingBox) ||
+        CGRectIntersectsRect(character.boundingBox, _blackHole3.boundingBox) ||
+        CGRectIntersectsRect(character.boundingBox, _blackHole4.boundingBox) ||
+        CGRectIntersectsRect(character.boundingBox, _blackHole5.boundingBox) )
+    {
         CCLOG(@"On a blackHole");
         [[SaveManager sharedManager]saveIsSucking:true];
     }
@@ -1184,7 +1238,7 @@ static int DIAMOND_TIER = 1350;
     _clearLabel.visible = false;
     _menuButton.visible = false;
     _menuLabel.visible = false;
-    
+
 //    _arrow1.visible = false;
     _arrow3.visible = false;
     _arrow2.visible = false;
@@ -1193,6 +1247,10 @@ static int DIAMOND_TIER = 1350;
 //    _tutorialLabel = [CCBReader load:@"InstructionLabel/RotateLeftIns"];
 //    [_tutorialLabel setAnchorPoint:ccp(0.5, 0.5)];
     [_tutorialBannerLabel setString:[NSString stringWithFormat:@"tap\n[Rotate Left]\nbutton"]];
+    
+    _instructionArrow.positionType = CCPositionTypeNormalized;
+    _instructionArrow.position = ccp(0.15, _instructionArrow.position.y);
+    
 //    _tutorialLabel.position = ccp(_turnLeftButton.position.x * 320, _turnLeftButton.position.y * 384 + 128);
 //    [self addChild:_tutorialLabel];
 }
@@ -1220,7 +1278,10 @@ static int DIAMOND_TIER = 1350;
     
 //    [_tutorialLabel removeFromParent];
 //    _tutorialLabel = [CCBReader load:@"InstructionLabel/MoveForwardIns"];
-    [_tutorialBannerLabel setString:[NSString stringWithFormat:@"tap\n[Fly Forward 1 Tile]\nbutton"]];
+    [_tutorialBannerLabel setString:[NSString stringWithFormat:@"tap\n[Forward 1]\nbutton"]];
+    _instructionArrow.positionType = CCPositionTypeNormalized;
+    _instructionArrow.position = ccp(0.5, _instructionArrow.position.y);
+    
 //    _tutorialLabel.position = ccp(_goUpButton.position.x * 320, _goUpButton.position.y * 384 + 128);
 //    [self addChild:_tutorialLabel];
     
@@ -1239,6 +1300,9 @@ static int DIAMOND_TIER = 1350;
 //    [_tutorialLabel removeFromParent];
 //    _tutorialLabel = [CCBReader load:@"InstructionLabel/StartIns"];
     [_tutorialBannerLabel setString:[NSString stringWithFormat:@"tap\n[Start Engine]\nbutton"]];
+    
+    _instructionArrow.positionType = CCPositionTypeNormalized;
+    _instructionArrow.position = ccp(0.5, _instructionArrow.position.y+0.1);
 
 
 //    _tutorialLabel.position = ccp(_startEngineButton.position.x * 320, _startEngineButton.position.y * 384 + 110);
@@ -1270,6 +1334,8 @@ static int DIAMOND_TIER = 1350;
     
 //    _tutorialLabel = [CCBReader load:@"InstructionLabel/RotateLeftIns"];
     [_tutorialBannerLabel setString:[NSString stringWithFormat:@"tap\n[Rotate Left]\nbutton"]];
+    _instructionArrow.positionType = CCPositionTypeNormalized;
+    _instructionArrow.position = ccp(0.15, _instructionArrow.position.y);
 
 //    [_tutorialLabel setAnchorPoint:ccp(0.5, 0.5)];
     
@@ -1298,7 +1364,9 @@ static int DIAMOND_TIER = 1350;
     
 //    [_tutorialLabel removeFromParent];
 //    _tutorialLabel = [CCBReader load:@"InstructionLabel/MoveForwardIns"];
-    [_tutorialBannerLabel setString:[NSString stringWithFormat:@"tap\n[Fly Forward 1 Tile]\nbutton"]];
+    [_tutorialBannerLabel setString:[NSString stringWithFormat:@"tap\n[Forward 1]\nbutton"]];
+    _instructionArrow.positionType = CCPositionTypeNormalized;
+    _instructionArrow.position = ccp(0.5, _instructionArrow.position.y);
 
 //    _tutorialLabel.position = ccp(_goUpButton.position.x * 320, _goUpButton.position.y * 384 + 128);
 //    [self addChild:_tutorialLabel];
@@ -1320,6 +1388,8 @@ static int DIAMOND_TIER = 1350;
 //    [_tutorialLabel removeFromParent];
 //    _tutorialLabel = [CCBReader load:@"InstructionLabel/StartIns"];
     [_tutorialBannerLabel setString:[NSString stringWithFormat:@"tap\n[Start Engine]\nbutton"]];
+    _instructionArrow.positionType = CCPositionTypeNormalized;
+    _instructionArrow.position = ccp(0.5, _instructionArrow.position.y+0.1);
 
 //    _tutorialLabel.position = ccp(_startEngineButton.position.x * 320, _startEngineButton.position.y * 384 + 110);
 //    [self addChild:_tutorialLabel];
@@ -1353,6 +1423,8 @@ static int DIAMOND_TIER = 1350;
     
 //    _tutorialLabel = [CCBReader load:@"InstructionLabel/RotateLeftIns"];
     [_tutorialBannerLabel setString:[NSString stringWithFormat:@"tap\n[Rotate Left]\nbutton"]];
+    _instructionArrow.positionType = CCPositionTypeNormalized;
+    _instructionArrow.position = ccp(0.15, _instructionArrow.position.y);
 
 //    [_tutorialLabel setAnchorPoint:ccp(0.5, 0.5)];
 //    
@@ -1388,7 +1460,9 @@ static int DIAMOND_TIER = 1350;
     
 //    [_tutorialLabel removeFromParent];
 //    _tutorialLabel = [CCBReader load:@"InstructionLabel/MoveForwardIns"];
-    [_tutorialBannerLabel setString:[NSString stringWithFormat:@"tap\n[Fly Forward 1 Tile]\nbutton"]];
+    [_tutorialBannerLabel setString:[NSString stringWithFormat:@"tap\n[Forward 1]\nbutton"]];
+    _instructionArrow.positionType = CCPositionTypeNormalized;
+    _instructionArrow.position = ccp(0.5, _instructionArrow.position.y);
 
 //    _tutorialLabel.position = ccp(_goUpButton.position.x * 320, _goUpButton.position.y * 384 + 128);
 //    [self addChild:_tutorialLabel];
@@ -1415,6 +1489,8 @@ static int DIAMOND_TIER = 1350;
 //    [_tutorialLabel removeFromParent];
 //    _tutorialLabel = [CCBReader load:@"InstructionLabel/RotateRightIns"];
     [_tutorialBannerLabel setString:[NSString stringWithFormat:@"tap\n[Rotate Right]\nbutton"]];
+    _instructionArrow.positionType = CCPositionTypeNormalized;
+    _instructionArrow.position = ccp(0.85, _instructionArrow.position.y);
 
 //    _tutorialLabel.position = ccp(_turnRightButton.position.x * 320, _turnRightButton.position.y * 384 + 128);
 //    [self addChild:_tutorialLabel];
@@ -1434,6 +1510,8 @@ static int DIAMOND_TIER = 1350;
 //    [_tutorialLabel removeFromParent];
 //    _tutorialLabel = [CCBReader load:@"InstructionLabel/StartIns"];
     [_tutorialBannerLabel setString:[NSString stringWithFormat:@"tap\n[Start Engine]\nbutton"]];
+    _instructionArrow.positionType = CCPositionTypeNormalized;
+    _instructionArrow.position = ccp(0.5, _instructionArrow.position.y+0.1);
 
 //    _tutorialLabel.position = ccp(_startEngineButton.position.x * 320, _startEngineButton.position.y * 384 + 110);
 //    [self addChild:_tutorialLabel];
