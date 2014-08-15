@@ -5011,7 +5011,7 @@
 								<key>value</key>
 								<array>
 									<string></string>
-									<string>ArtWorks/Star.png</string>
+									<string>ArtWorks/NewStar.png</string>
 								</array>
 							</dict>
 							<dict>
@@ -5028,6 +5028,8 @@
 								</array>
 							</dict>
 						</array>
+						<key>selected</key>
+						<true/>
 					</dict>
 				</array>
 				<key>customClass</key>
