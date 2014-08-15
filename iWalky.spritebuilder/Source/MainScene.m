@@ -26,11 +26,11 @@
 static int MAPS_PER_LEVEL = 1;
 static int MAX_NUMBER_OF_MAPS = 30;
 
-static int BRONZE_TIER = 1200;
-static int SILVER_TIER = 1290;
-static int GOLD_TIER = 1310;
-static int PLATINUM_TIER = 1330;
-static int DIAMOND_TIER = 1350;
+static int BRONZE_TIER = 2000;
+static int SILVER_TIER = 2400;
+static int GOLD_TIER = 2550;
+static int PLATINUM_TIER = 2625;
+static int DIAMOND_TIER = 2675;
 
 
 
@@ -245,7 +245,7 @@ static int DIAMOND_TIER = 1350;
     if ([[SaveManager sharedManager]getPlayerNormalMapLevel] == 0)
     {
 //        [[SaveManager sharedManager]saveBarrelCount:10];
-        [[SaveManager sharedManager]saveStarCount:999];
+        [[SaveManager sharedManager]saveStarCount:9999];
 //        [[SaveManager sharedManager]saveShieldDurability:5];
     }
     
