@@ -40,6 +40,8 @@ static int DIAMOND_TIER = 1350;
 @implementation MainScene
 {
     
+    CCLabelTTF* _EarnedStarLabel;
+    
     
     BOOL shownGameTip;
     CCNode* _instructionArrow;
@@ -243,7 +245,7 @@ static int DIAMOND_TIER = 1350;
     if ([[SaveManager sharedManager]getPlayerNormalMapLevel] == 0)
     {
 //        [[SaveManager sharedManager]saveBarrelCount:10];
-        [[SaveManager sharedManager]saveStarCount:9999];
+//        [[SaveManager sharedManager]saveStarCount:9999];
 //        [[SaveManager sharedManager]saveShieldDurability:5];
     }
     
@@ -606,6 +608,7 @@ static int DIAMOND_TIER = 1350;
         character.position.y == _endTile.position.y + 16
         )
     {
+        
         CCLOG(@"Player At %f, %f", character.position.x, character.position.y);
         CCLOG(@"Entiled at %f, %f", _endTile.position.x, character.position.y);
         
@@ -650,6 +653,9 @@ static int DIAMOND_TIER = 1350;
             
             [self addChild:popup];
         
+        [_EarnedStarLabel setString:[NSString stringWithFormat:@"+ %d Stars", playerMapLevel*3]];
+
+        
         if(playerMapLevel < MAX_NUMBER_OF_MAPS)
         {
             _finishButton.visible = false;
@@ -662,7 +668,7 @@ static int DIAMOND_TIER = 1350;
             if ((100.f - mTimeInSec) > [previousHighScoreForCurrentLevel floatValue])
             {
                 //                [_newHighScoreLabel setString:[NSString stringWithFormat:@"Lvl%d High Score: %d", playerMapLevel, (int)(100.f - mTimeInSec)]];
-                [_highScoreLabel setString:[NSString stringWithFormat:@"Yay!!New Best Score: %d", (int)(100.f - mTimeInSec)]];
+                [_highScoreLabel setString:[NSString stringWithFormat:@"New Best Score: %d", (int)(100.f - mTimeInSec)]];
                 
             }
             else{
@@ -1029,7 +1035,7 @@ static int DIAMOND_TIER = 1350;
     if (CGRectIntersectsRect(character.boundingBox, _star.boundingBox) && !_star.isChecked)
     {
         _star.isChecked = true;
-        starCounts = starCounts * playerMapLevel;
+        starCounts = 3 * playerMapLevel + starCounts;
         _starCountsLabel.string = [NSString stringWithFormat:@"%d", starCounts];
         
 //        [[SaveManager sharedManager] saveStarCount:starCounts];
@@ -1163,10 +1169,10 @@ static int DIAMOND_TIER = 1350;
 -(void)accelerate
 {
 
-    if (starCounts >= [[SaveManager sharedManager]getEngineLevel] && !character.accelerationModeEnabled && !(won) && !isAboutToDemote && goPressed)
+    if (starCounts >= ([[SaveManager sharedManager]getEngineLevel] * 10) && !character.accelerationModeEnabled && !(won) && !isAboutToDemote && goPressed)
     {
 
-        starCounts = starCounts - [[SaveManager sharedManager]getEngineLevel];
+        starCounts = starCounts - [[SaveManager sharedManager]getEngineLevel] * 10;
         _starCountsLabel.string = [NSString stringWithFormat:@"%d", starCounts];
         
         [[SaveManager sharedManager] saveStarCount:starCounts];
@@ -1541,9 +1547,9 @@ static int DIAMOND_TIER = 1350;
 
 -(void)activateShield
 {
-    if ((starCounts >= [[SaveManager sharedManager]getshieldDurability] && !(won) && !isAboutToDemote && goPressed))
+    if ((starCounts >= ([[SaveManager sharedManager]getshieldDurability] * 10) && !(won) && !isAboutToDemote && goPressed))
     {
-        starCounts = starCounts - shieldDurability;
+        starCounts = starCounts - shieldDurability * 10;
         _starCountsLabel.string = [NSString stringWithFormat:@"%d", starCounts];
         [character activateShield];
         _shieldButton.visible = false;

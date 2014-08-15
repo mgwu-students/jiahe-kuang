@@ -218,4 +218,11 @@ static int STAR_COST_FOR_SHIELD_UPGRADE = 80;
 
 }
 
+-(void)ClearStars
+{
+    [[SaveManager sharedManager]resetStarCount];
+    _currentStarCount = [[SaveManager sharedManager] getStarCount];
+    [_currentStartCountLabel setString:[NSString stringWithFormat:@"%d", _currentStarCount]];
+}
+
 @end

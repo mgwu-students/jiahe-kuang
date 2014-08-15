@@ -158,8 +158,8 @@
 						<string>ScaleLock</string>
 						<key>value</key>
 						<array>
-							<real>0.5</real>
-							<real>0.5</real>
+							<real>0.34999999403953552</real>
+							<real>0.34999999403953552</real>
 							<false/>
 							<integer>0</integer>
 						</array>
@@ -172,7 +172,7 @@
 						<key>value</key>
 						<array>
 							<string></string>
-							<string>ArtWorks/MoonBlade.png</string>
+							<string>ArtWorks/FinalMoonBlade.png</string>
 						</array>
 					</dict>
 					<dict>

@@ -221,7 +221,7 @@
 						<key>value</key>
 						<array>
 							<string></string>
-							<string>ArtWorks/DownArrow.png</string>
+							<string>ArtWorks/HandDraw.png</string>
 						</array>
 					</dict>
 					<dict>
@@ -231,8 +231,8 @@
 						<string>Color3</string>
 						<key>value</key>
 						<array>
-							<real>0.50555652379989624</real>
-							<real>0.56670206785202026</real>
+							<real>0.23637144267559052</real>
+							<real>0.55680513381958008</real>
 							<real>1</real>
 							<real>1</real>
 						</array>
