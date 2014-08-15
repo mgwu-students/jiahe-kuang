@@ -110,7 +110,7 @@
 						<key>value</key>
 						<array>
 							<string></string>
-							<string>ArtWorks/NewStar.png</string>
+							<string>ArtWorks/Star2.png</string>
 						</array>
 					</dict>
 					<dict>
@@ -127,8 +127,6 @@
 						</array>
 					</dict>
 				</array>
-				<key>selected</key>
-				<true/>
 			</dict>
 		</array>
 		<key>customClass</key>
