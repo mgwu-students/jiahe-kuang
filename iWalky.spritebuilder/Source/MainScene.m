@@ -245,7 +245,7 @@ static int DIAMOND_TIER = 2675;
     if ([[SaveManager sharedManager]getPlayerNormalMapLevel] == 0)
     {
 //        [[SaveManager sharedManager]saveBarrelCount:10];
-        [[SaveManager sharedManager]saveStarCount:9999];
+        [[SaveManager sharedManager]saveStarCount:99999];
 //        [[SaveManager sharedManager]saveShieldDurability:5];
     }
     

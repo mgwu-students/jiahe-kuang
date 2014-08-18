@@ -8,11 +8,11 @@
 
 #import "PlayerProfile.h"
 #import "SaveManager.h"
-static int BRONZE_TIER = 1200;
-static int SILVER_TIER = 1290;
-static int GOLD_TIER = 1310;
-static int PLATINUM_TIER = 1330;
-static int DIAMOND_TIER = 1350;
+static int BRONZE_TIER = 2000;
+static int SILVER_TIER = 2400;
+static int GOLD_TIER = 2550;
+static int PLATINUM_TIER = 2625;
+static int DIAMOND_TIER = 2675;
 
 @implementation PlayerProfile
 {
